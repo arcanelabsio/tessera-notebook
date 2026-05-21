@@ -439,6 +439,20 @@
     .question p + p { margin-top: var(--space-4); }
     .question .emph { color: var(--mint); font-style: italic; }
 
+    /* ─────────────────────────────────────────────────── READ-TIME FOOTER */
+    /* Computed from word count at parse time. Placed below the body so
+       it reads as a receipt ("you just read N minutes") rather than a
+       commitment signal — that's a deliberate editorial choice. */
+    .read-time {
+      max-width: var(--measure);
+      margin: var(--space-12) auto 0;
+      font-family: var(--f-mono);
+      font-size: var(--fs-13);
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
     /* ─────────────────────────────────────────────────── PREV / NEXT NAV */
     .ep-nav {
       display: grid;

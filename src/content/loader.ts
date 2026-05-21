@@ -43,6 +43,21 @@ function asNumber(v: unknown): number {
   return 0;
 }
 
+// Adult prose reads at ~225 wpm; the notebook is denser ("density is
+// the brand") so we estimate at 220 wpm and always round up — readers
+// finishing in less than the readout feel rewarded, finishing over
+// feels misleading.
+const WORDS_PER_MINUTE = 220;
+
+function estimateReadMinutes(body: string): number {
+  const words = body
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/[#>*_`\-|]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 0).length;
+  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
+}
+
 const SCENE_TYPES: ReadonlySet<SceneType> = new Set([
   "feature",
   "incident",
@@ -91,6 +106,7 @@ function parseEpisode(path: string, raw: string): Episode {
           : null,
     body,
     url: `/${seasonFromPath}/${slugFromPath}`,
+    readMinutes: estimateReadMinutes(body),
   };
 }
 

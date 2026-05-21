@@ -24,35 +24,18 @@ Three scene types alternate by feel:
 
 A fourth shape — **Decision** rooms — covers internal design reviews with no shipping urgency: the team picks the data store, defends the queue choice, writes the ADR that gets cited three years later.
 
-Each episode is a 7-minute read with the same five beats: a scene (200–350 words), the concept it surfaces (400–600 words), one mental model you keep, one question to journal, and a one-line tease for tomorrow. Density is the brand.
-
-## How to read it
-
-| When | Time | What |
-|---|---|---|
-| **Morning, with coffee** | 10 min | Today's episode |
-| **Mid-day, between meetings** | 2 min | Glance at the mental model again |
-| **Evening, before logging off** | 3 min | Answer the journal question against a real system you own |
-| **Sunday** | 15 min | Re-read the week's episodes; notice which ones changed how you'd argue in a design review |
-
-Skipping a day is normal. Skipping two in a row is the failure mode the cadence is designed to prevent.
+Each episode is roughly a 7-minute read with the same five beats: a scene (200–350 words), the concept it surfaces (400–600 words), one mental model you keep, one question to journal, and a one-line tease for tomorrow. Density is the brand.
 
 The journal question is where the takeaway lives. The episodes don't conclude with a tidy lesson; they hand you a question that only makes sense if you answer it about a service you actually maintain. That's the reading practice — and it compounds.
 
 ## Who you'll meet
 
-Tessera's crew is fixed; behaviour is the texture. You learn who each character is by watching them work, not from narrator essays.
+Tessera's crew is fixed; behaviour is the texture. You learn who each character is by watching them work, not from narrator essays. New voices walk into the room as the company grows — they're introduced in the episode they first show up in, not before.
 
 - **Kiran** (CTO, co-founder) sets ambitious schedules and means them.
 - **Anjali** (founding engineer, later titled Staff) is the one who pauses for five seconds in a design review before answering — and the conversation reframes.
 - **Diego** (founding engineer, later SRE lead) speaks last in the war room, decisively.
 - **Wim** (longest-tenured) knows where the bodies are buried in the legacy code.
-- **Sara** (Platform PM, joins at 1M) tracks adoption metrics like treasure maps.
-- **Hassan** (CISO, joins at the enterprise mark) is the one who says "we can ship Tuesday — without the audit log, we cannot ship at all."
-- **Lior** (AI infra lead, joins in the AI era) ships first and scales after.
-- **Aman** (first junior hire, joins around 1M) is the one taking the customer ticket at face value when Anjali walks past.
-
-The Support scenes lean on the contrast between Aman and Anjali — the same ticket, two different approaches, and you watch the delta between them play out in dialogue. It is the most legible way to see Staff-engineer thinking happen: by watching what it *isn't* alongside what it *is*. The notebook never tells you which is which. The scene shows you, and you decide.
 
 There are no villains. The antagonists are scale, complexity, technical debt, and customer pressure — never people.
 

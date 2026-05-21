@@ -17,6 +17,7 @@ export type Episode = {
   voicePass: string | null;
   body: string;
   url: string; // /<season>/<slug>
+  readMinutes: number; // computed from body word count at parse time
 };
 
 export type SeasonSummary = {

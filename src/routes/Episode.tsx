@@ -58,6 +58,10 @@ export function Episode() {
 
       <EpisodeBody body={ep.body} />
 
+      <p className="read-time" aria-label="Estimated reading time">
+        ~{ep.readMinutes} min read
+      </p>
+
       <hr className="thin thin--centered" />
 
       <EpisodeNav prev={prev} next={next} />
