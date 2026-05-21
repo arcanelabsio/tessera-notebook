@@ -8,8 +8,8 @@ scene_type: feature
 arc: Arc 1 — The Premises of Distributed Computing
 concept: The 8 fallacies of distributed computing
 description: The list everyone has heard and almost nobody uses as a checklist.
-date: 2026-05-21
-voice_pass: 2026-05-21
+date: 2026-05-22
+voice_pass: 2026-05-22
 ---
 
 # Day 1 — Two regions by Friday *(feature)*
