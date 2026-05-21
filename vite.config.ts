@@ -39,6 +39,13 @@ export default defineConfig({
           if (id.includes("/yaml/")) {
             return "vendor-yaml";
           }
+          // p5 lands in its own chunk so episode routes are the only
+          // surface that pays the sketch-runtime cost. Home / Archive
+          // / Saved / Concepts never trigger the dynamic import that
+          // pulls this chunk in.
+          if (id.includes("/p5/")) {
+            return "vendor-sketches";
+          }
           if (
             id.includes("/react-markdown/") ||
             id.includes("/remark-") ||

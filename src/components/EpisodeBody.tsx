@@ -1,5 +1,8 @@
-import { useCallback, useState } from "react";
+import { Suspense, useCallback, useState } from "react";
 import { Markdown } from "./Markdown";
+import type { Episode } from "../content/types";
+import { AmbientSketch } from "./sketches/ambient";
+import { CONCEPT_SKETCHES, hasConceptSketch } from "./sketches/registry";
 
 // Split an episode body by H2 sections. The episode template (Scene,
 // Concept, Mental model, Question, Tomorrow) is fixed, so a simple
@@ -100,10 +103,22 @@ function EpisodeTOC({ sections }: { sections: Section[] }) {
   );
 }
 
-export function EpisodeBody({ body }: { body: string }) {
-  const sections = splitSections(body);
+// The concept sketch is rendered immediately after the "Mental model"
+// beat — that's where the abstract has just been introduced and the
+// reader most benefits from a manipulable counterpart. Headings other
+// than "Mental model" don't trigger injection.
+function isMentalModel(heading: string): boolean {
+  return heading.toLowerCase() === "mental model";
+}
+
+export function EpisodeBody({ episode }: { episode: Episode }) {
+  const sections = splitSections(episode.body);
+  const ConceptSketch = hasConceptSketch(episode.slug)
+    ? CONCEPT_SKETCHES[episode.slug]
+    : null;
   return (
     <article className="prose">
+      <AmbientSketch episode={episode} />
       <EpisodeTOC sections={sections} />
       {sections.map((section) => {
         const wrap = wrapperFor(section.heading);
@@ -120,6 +135,11 @@ export function EpisodeBody({ body }: { body: string }) {
             ) : (
               <Markdown source={section.body} variant="inline" />
             )}
+            {ConceptSketch && isMentalModel(section.heading) ? (
+              <Suspense fallback={null}>
+                <ConceptSketch />
+              </Suspense>
+            ) : null}
           </div>
         );
       })}

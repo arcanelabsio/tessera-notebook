@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(lsof -iTCP -sTCP:LISTEN -P)",
+      "Bash(curl -s -o /dev/null -w \"ep:%{http_code} bytes:%{size_download}\\\\n\" http://localhost:5173/season-1/two-regions-by-friday)",
+      "Bash(curl -s -o /dev/null -w \"amb:%{http_code}\\\\n\" \"http://localhost:5173/src/components/sketches/ambient.tsx\")",
+      "Bash(curl -s -o /dev/null -w \"sc:%{http_code}\\\\n\"  \"http://localhost:5173/src/components/sketches/SketchCanvas.tsx\")",
+      "Bash(curl -s -o /dev/null -w \"tr:%{http_code}\\\\n\"  \"http://localhost:5173/src/components/sketches/concepts/two-regions-by-friday.tsx\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(kill 59341)",
+      "Bash(lsof -iTCP:5173 -sTCP:LISTEN -P)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/p5/package.json'\\).version\\)\")",
+      "Bash(git mv *)"
+    ]
+  }
+}

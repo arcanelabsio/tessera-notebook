@@ -99,7 +99,7 @@ export function Episode() {
 
         <hr className="thin" />
 
-        <EpisodeBody body={ep.body} />
+        <EpisodeBody episode={ep} />
 
         <p className="read-time" aria-label="Estimated reading time">
           ~{ep.readMinutes} min read

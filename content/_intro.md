@@ -16,12 +16,12 @@ Every episode opens with a scene from Tessera's life, and the scene surfaces a c
 
 Four scene types alternate by feel:
 
-| Type | What you watch | Example |
+| Type | What you watch | What it surfaces |
 |---|---|---|
-| **Feature** | Tessera is shipping something and has to answer a design question first | *Day 1 — Two regions by Friday*: the eight fallacies of distributed computing land on the whiteboard before the architecture diagram does |
-| **Incident** | Something broke at this tier of scale and the war room is open | *Two leaders, briefly*: leases and fencing tokens save the next incident |
-| **Support** | A customer reported something and the team has to decide what class of bug it actually is | *Day 13 — The duplicate charge*: refund the ticket, or fix the contract that produced it |
-| **Decision** | An internal design review with no shipping urgency — the team picks the data store and defends the queue choice | *Choosing the queue*: write the ADR that gets cited three years later |
+| **Feature** | Tessera is shipping something and has to answer a design question first | *Distributed-systems fundamentals* — fallacies, latency budgets, CAP, the physics of a round-trip drawn on the whiteboard before the first line of code |
+| **Incident** | Something broke at this tier of scale and the war room is open | *Failure modes that scale* — retry storms, split-brain, cache stampedes; the same outage repeating in new clothes at each tier of growth |
+| **Support** | A customer reported something and the team has to decide what class of bug it actually is | *Contracts vs. accidents* — idempotency, exactly-once myths, multi-tenancy boundaries, the bug-versus-design call that defines the SLA |
+| **Decision** | An internal design review with no shipping urgency — the team picks the data store and defends the queue choice | *Architecture under constraint* — queues, data stores, schema evolution, the ADRs cited three years later and the ones that ought to have been |
 
 Each episode is roughly a 7-minute read with the same five beats: a scene (200–350 words), the concept it surfaces (400–600 words), one mental model you keep, one question to journal, and a one-line tease for tomorrow. Density is the brand.
 
