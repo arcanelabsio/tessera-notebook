@@ -309,7 +309,11 @@
       content: "# ";
       color: var(--amber);
     }
-    .section-h:first-of-type { margin-top: 0; }
+    /* EpisodeBody wraps each section in its own <div>, so a plain
+       :first-of-type selector matches every heading (each is the
+       only h2 inside its own wrapper). Scope to the first wrapper
+       so only the truly-first heading has its top margin collapsed. */
+    .prose > div:first-child > .section-h { margin-top: 0; }
 
     /* ─────────────────────────────────────────────────── BODY PROSE */
     /* overflow-wrap: anywhere lets long URLs, code tokens, and inline

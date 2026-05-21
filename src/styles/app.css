@@ -171,6 +171,56 @@
   margin: 0 auto;
   overflow-wrap: anywhere;
 }
+/* Editorial styling for markdown-rendered headings, paragraphs, and
+   lists inside the intro. Without these, the home-page intro falls
+   back to browser defaults (bold sans-y h2 against serif paragraphs)
+   and reads as broken typography. The variant="inline" Markdown
+   pipeline doesn't add the .section-h class the way episode bodies
+   do, so we style the plain tags directly. */
+.intro-body h2 {
+  font-family: var(--f-serif);
+  font-size: var(--fs-22);
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.3;
+  margin: var(--space-12) 0 var(--space-4);
+}
+.intro-body h2:first-child { margin-top: 0; }
+.intro-body h3 {
+  font-family: var(--f-serif);
+  font-size: var(--fs-18);
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.35;
+  margin: var(--space-8) 0 var(--space-3);
+}
+.intro-body p {
+  margin: 0 0 var(--space-5);
+  line-height: 1.65;
+}
+.intro-body p:last-child { margin-bottom: 0; }
+.intro-body ul, .intro-body ol {
+  margin: 0 0 var(--space-6);
+  padding-left: var(--space-5);
+}
+.intro-body ul li, .intro-body ol li {
+  margin-bottom: var(--space-2);
+  line-height: 1.55;
+}
+.intro-body ul li::marker { color: var(--amber); }
+.intro-body ol li::marker { color: var(--amber); font-family: var(--f-mono); }
+.intro-body a {
+  color: var(--mint);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+.intro-body a:hover,
+.intro-body a:focus-visible {
+  text-decoration-color: var(--mint);
+}
+.intro-body strong { font-weight: 600; color: var(--fg); }
 /* Editorial table style for tables inside the intro markdown.
    Mirrors .mm-card in theme.css so both surfaces share one visual
    vocabulary. On narrow viewports the table reflows into a stacked
