@@ -28,6 +28,21 @@
       />
     </noscript>
     <script type="text/javascript">
+      // Theme: read saved preference and apply BEFORE the bundled CSS
+      // paints to avoid flash-of-wrong-theme. Editorial sites default
+      // to light; only an explicit reader choice switches to dark. OS
+      // preference is intentionally not honored — see useTheme.ts.
+      (function () {
+        try {
+          var raw = localStorage.getItem("tessera:theme:v1");
+          var t = raw ? JSON.parse(raw) : "light";
+          if (t !== "light" && t !== "dark") t = "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+
       // GH Pages SPA-fallback decode. When 404.html redirects an
       // unknown deep URL to "/?/season-1/two-regions-by-friday", this
       // snippet rewrites the URL back to the real path before the

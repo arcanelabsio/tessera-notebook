@@ -58,24 +58,29 @@
       --f-mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
-    /* ─────── DARK MODE — opt-in via prefers-color-scheme ─────── */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:         #080b10;
-        --bg-2:       #0d1117;
-        --bg-3:       #11161d;
-        --mint:       #00f0a0;
-        --mint-soft:  #6feecf;
-        --amber:      #ffb347;
-        --amber-soft: #ffd280;
-        --fg:         #e6edf3;
-        --fg-muted:   #b1bac4;
-        --muted:      #8b95a1;     /* slight lift from #7d8590 for AA */
-        --rule:       #2a3340;
-        --rule-soft:  #1c232c;
-        --selection-bg: #00f0a0;
-        --selection-fg: #080b10;
-      }
+    /* ─────── DARK MODE — reader-controlled via data-theme on <html> ───────
+       Default is light (the canonical editorial reading surface). The
+       reader explicitly opts into dark via the masthead toggle. The
+       data-theme attribute is set by an inline script in index.html
+       before first paint to avoid FOUC; useTheme keeps it in sync
+       across React renders. */
+    :root[data-theme="light"] { color-scheme: light; }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:         #080b10;
+      --bg-2:       #0d1117;
+      --bg-3:       #11161d;
+      --mint:       #00f0a0;
+      --mint-soft:  #6feecf;
+      --amber:      #ffb347;
+      --amber-soft: #ffd280;
+      --fg:         #e6edf3;
+      --fg-muted:   #b1bac4;
+      --muted:      #8b95a1;
+      --rule:       #2a3340;
+      --rule-soft:  #1c232c;
+      --selection-bg: #00f0a0;
+      --selection-fg: #080b10;
     }
 
     * { box-sizing: border-box; }
@@ -337,6 +342,38 @@
     @media (max-width: 480px) {
       .masthead__search-text { display: none; }
     }
+
+    .masthead__theme {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 0;
+      color: var(--muted);
+      padding: var(--space-2) var(--space-1);
+      cursor: pointer;
+      transition: color 150ms ease;
+    }
+    .masthead__theme:hover,
+    .masthead__theme:focus-visible {
+      color: var(--mint);
+    }
+    .masthead__theme svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* Cross-fade between the two glyphs when the theme flips. The
+       inactive icon is removed from layout via display: none so the
+       button doesn't double in width. */
+    .masthead__theme .icon-sun,
+    .masthead__theme .icon-moon { display: none; }
+    :root[data-theme="light"] .masthead__theme .icon-sun { display: block; }
+    :root[data-theme="dark"] .masthead__theme .icon-moon { display: block; }
 
     @media (min-width: 481px) {
       .masthead { padding: var(--space-5) var(--space-5); }

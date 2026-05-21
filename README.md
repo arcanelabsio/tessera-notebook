@@ -110,7 +110,7 @@ Catalog navigation:
 - `/concepts` — episodes grouped by their `concept` frontmatter value.
 - `/saved` — episodes the reader has starred (localStorage only; no account / sync).
 
-Theme honors **`prefers-color-scheme`** — light is the default, dark is rendered automatically for readers whose OS prefers dark. Both palettes live in `src/styles/theme.css` and stay in sync through semantic color tokens.
+Theme is **reader-controlled** — light is the editorial default; the reader explicitly opts into dark via the sun/moon toggle in the masthead. OS preference is intentionally not honored (reading environment, not system chrome, is the right signal here). The choice is persisted to `localStorage` under `tessera:theme:v1` and applied via a `data-theme` attribute on `<html>` set by an inline script in `index.html` before first paint — so there's no flash-of-wrong-theme on refresh.
 
 No Redux/Zustand — `React.Context` + a `usePersisted` hook is enough until the state model grows non-trivially.
 
