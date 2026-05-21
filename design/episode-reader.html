@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light only" />
+  <title>Two regions by Friday — The Tessera Notebook · Day 01</title>
+  <meta name="description" content="The list everyone has heard and almost nobody uses as a checklist." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,ital,wght@8..60,0,400;8..60,0,500;8..60,0,600;8..60,0,700;8..60,1,400;8..60,1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* ─────── LIGHT MODE (default — editorial reading surface) ─────── */
+      --bg:         #faf7f2;  /* warm cream — paper */
+      --bg-2:       #fffefb;  /* card surface */
+      --bg-3:       #f2efe7;  /* recessed surface (question-block) */
+      --mint:       #00876a;  /* deep teal-green accent on cream */
+      --mint-soft:  #0a6f5a;  /* darker mint for emphasis */
+      --amber:      #a05a00;  /* deep burnt-orange accent */
+      --amber-soft: #884c00;  /* darker amber */
+      --fg:         #1a1d22;  /* near-black ink */
+      --fg-muted:   #4a5260;  /* lead, meta values */
+      --muted:      #6c7480;  /* footer, captions */
+      --rule:       #c9c1ad;  /* warm beige rule — darker, visible */
+      --rule-soft:  #dcd4c2;  /* lighter beige rule for hairlines */
+      --selection-bg: #00876a;
+      --selection-fg: #faf7f2;
+
+      /* type scale */
+      --fs-12: 12px;
+      --fs-13: 13px;
+      --fs-14: 14px;
+      --fs-16: 16px;
+      --fs-18: 18px;
+      --fs-22: 22px;
+      --fs-28: 28px;
+      --fs-36: 36px;
+      --fs-44: 44px;
+
+      /* spacing */
+      --space-1:  4px;
+      --space-2:  8px;
+      --space-3:  12px;
+      --space-4:  16px;
+      --space-5:  20px;
+      --space-6:  24px;
+      --space-8:  32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+      --space-24: 96px;
+
+      /* measure */
+      --measure:        680px;   /* canonical body reading width */
+      --measure-narrow: 520px;   /* question-block (emphasis) */
+      --measure-wide:   880px;   /* mental-model card breakout, page container */
+
+      /* type families */
+      --f-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+      --f-mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    /*
+     * NOTE: dark mode is intentionally disabled in this mockup so it always
+     * renders the editorial light design regardless of OS theme. The
+     * production site at tessera.arcanelabs.info will re-enable dark via
+     * @media (prefers-color-scheme: dark) using the dark palette below.
+     * Kept here as a reference, commented out.
+     *
+     * @media (prefers-color-scheme: dark) {
+     *   :root {
+     *     --bg: #080b10; --bg-2: #0d1117; --bg-3: #11161d;
+     *     --mint: #00f0a0; --mint-soft: #6feecf;
+     *     --amber: #ffb347; --amber-soft: #ffd280;
+     *     --fg: #e6edf3; --fg-muted: #b1bac4; --muted: #7d8590;
+     *     --rule: #1f2933; --rule-soft: #2d3640;
+     *     --selection-bg: #00f0a0; --selection-fg: #080b10;
+     *   }
+     * }
+     */
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--f-serif);
+      font-size: 17px;            /* mobile default */
+      line-height: 1.65;
+      font-feature-settings: "kern" 1, "liga" 1;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    @media (min-width: 481px) {
+      body { font-size: var(--fs-18); }
+    }
+
+    /* ─────────────────────────────────────────────────── MASTHEAD */
+    .masthead {
+      border-bottom: 2px solid var(--rule);
+      padding: var(--space-5) var(--space-5);
+      background: var(--bg);
+      box-shadow: 0 1px 0 var(--rule-soft);
+    }
+    .masthead__inner {
+      max-width: var(--measure-wide);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      font-family: var(--f-mono);
+      font-size: var(--fs-14);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .masthead__title {
+      color: var(--fg);
+    }
+    .masthead__title::before {
+      content: "> ";
+      color: var(--mint);
+    }
+    .masthead__title .vol {
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .masthead__nav {
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .masthead__nav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .masthead__nav a:hover,
+    .masthead__nav a:focus-visible {
+      color: var(--mint);
+    }
+    .masthead__nav .sep { color: var(--rule); }
+
+    @media (min-width: 768px) {
+      .masthead { padding: var(--space-5) var(--space-8); }
+    }
+
+    /* ─────────────────────────────────────────────────── PAGE */
+    /* Outer container is --measure-wide (880px) so wide elements like
+       the mental-model card have room to breathe. Narrow body content
+       (paragraphs, headings, prev/next nav) re-constrains itself to
+       --measure (680px) for serif reading rhythm. */
+    .page {
+      max-width: var(--measure-wide);
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6) var(--space-20);
+    }
+
+    @media (min-width: 768px) {
+      .page { padding: var(--space-12) var(--space-8) var(--space-24); }
+    }
+
+    /* Narrow body content — centered inside the wider .page */
+    .back-nav,
+    .meta,
+    .title,
+    .lead,
+    hr.thin,
+    .ep-nav,
+    .section-h,
+    .prose > p,
+    .prose > ol,
+    .prose > ul {
+      max-width: var(--measure);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* back-nav stays anchored to the left, not centered */
+    .back-nav { display: block; max-width: var(--measure); }
+
+    /* ─────────────────────────────────────────────────── BACK NAV */
+    .back-nav {
+      font-family: var(--f-mono);
+      font-size: var(--fs-13);
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      display: inline-block;
+      margin-bottom: var(--space-12);
+      padding: var(--space-1) 0;
+      transition: color 150ms ease;
+    }
+    .back-nav:hover,
+    .back-nav:focus-visible { color: var(--mint); }
+
+    /* ─────────────────────────────────────────────────── META STRIP */
+    .meta {
+      font-family: var(--f-mono);
+      font-size: var(--fs-14);
+      line-height: 1.6;
+      color: var(--fg-muted);
+      margin-bottom: var(--space-6);
+    }
+    .meta__row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: baseline;
+      margin-bottom: var(--space-2);
+    }
+    .meta__row + .meta__row { margin-top: 0; }
+    .meta__sep { color: var(--rule); }
+    .meta__time {
+      font-variant-numeric: tabular-nums;
+      color: var(--fg-muted);
+    }
+    .meta__label {
+      font-size: var(--fs-12);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      min-width: 64px;
+    }
+    .meta__value {
+      font-family: var(--f-serif);
+      font-size: var(--fs-16);
+      color: var(--fg-muted);
+    }
+
+    /* ─────────────────────────────────────────────────── SCENE-TYPE BADGE */
+    .badge {
+      font-family: var(--f-mono);
+      font-size: var(--fs-14);
+      font-weight: 600;
+      letter-spacing: 0.10em;
+    }
+    .badge--feature  { color: var(--mint); }
+    .badge--incident { color: var(--amber); }
+    .badge--support  { color: var(--mint-soft); }
+    .badge--decision { color: var(--amber-soft); }
+
+    /* ─────────────────────────────────────────────────── TITLE + LEAD */
+    .title {
+      font-family: var(--f-serif);
+      font-size: 36px;             /* mobile */
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--mint);
+      letter-spacing: -0.005em;
+      margin: 0 0 var(--space-6);
+    }
+    @media (min-width: 768px) {
+      .title { font-size: var(--fs-44); }
+    }
+
+    .lead {
+      font-family: var(--f-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: var(--fs-22);
+      line-height: 1.5;
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-12);
+      max-width: var(--measure);
+    }
+
+    /* ─────────────────────────────────────────────────── DIVIDER */
+    hr.thin {
+      width: 96px;
+      height: 0;
+      margin: var(--space-12) 0;
+      border: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    hr.thin--centered {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─────────────────────────────────────────────────── SECTION HEADER */
+    .section-h {
+      font-family: var(--f-mono);
+      font-size: var(--fs-16);
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin: var(--space-16) 0 var(--space-6);
+    }
+    .section-h::before {
+      content: "# ";
+      color: var(--amber);
+    }
+    .section-h:first-of-type { margin-top: 0; }
+
+    /* ─────────────────────────────────────────────────── BODY PROSE */
+    .prose p {
+      margin: 0 0 var(--space-6);
+      max-width: var(--measure);
+    }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .prose em { font-style: italic; }
+    .prose strong { font-weight: 600; color: var(--fg); }
+
+    .prose ol, .prose ul {
+      margin: 0 0 var(--space-8);
+      padding-left: var(--space-6);
+    }
+    .prose ol li, .prose ul li {
+      margin-bottom: var(--space-3);
+      line-height: 1.6;
+    }
+    .prose ol li::marker {
+      color: var(--amber);
+      font-family: var(--f-mono);
+      font-weight: 600;
+    }
+    .prose ul li::marker { color: var(--amber); }
+
+    .prose a {
+      color: var(--mint);
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+      text-underline-offset: 3px;
+      padding: 2px 0;
+      transition: text-decoration-color 150ms ease;
+    }
+    .prose a:hover,
+    .prose a:focus-visible {
+      text-decoration-color: var(--mint);
+    }
+
+    .prose code {
+      font-family: var(--f-mono);
+      font-size: 0.86em;
+      background: var(--bg-3);
+      color: var(--mint-soft);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+
+    /* ─────────────────────────────────────────────────── MENTAL MODEL CARD */
+    /* Breaks out of --measure (680) to --measure-wide (880) so the
+       3-column fallacy table doesn't side-scroll. Centered inside .page. */
+    .mm-card {
+      background: var(--bg-2);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: var(--space-5);
+      margin: var(--space-6) auto 0;
+      max-width: var(--measure-wide);
+      overflow-x: auto;
+    }
+    @media (min-width: 481px) {
+      .mm-card { padding: var(--space-8); }
+    }
+
+    .mm-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--f-serif);
+      font-size: var(--fs-16);
+    }
+    .mm-card thead th {
+      font-family: var(--f-mono);
+      font-size: var(--fs-14);
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0 var(--space-4) var(--space-3);
+      border-bottom: 1px solid var(--rule);
+      white-space: nowrap;
+    }
+    .mm-card thead th:first-child { padding-left: 0; }
+    .mm-card tbody td {
+      padding: var(--space-3) var(--space-4);
+      vertical-align: top;
+      color: var(--fg);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .mm-card tbody td:first-child {
+      padding-left: 0;
+      font-weight: 500;
+      color: var(--mint-soft);
+    }
+    .mm-card tbody tr:last-child td { border-bottom: 0; }
+
+    /* ─────────────────────────────────────────────────── QUESTION BLOCK */
+    .question {
+      background: var(--bg-3);
+      border: 1px solid var(--rule-soft);
+      border-left: 3px solid var(--mint);
+      border-radius: 6px;
+      padding: var(--space-6) var(--space-6);
+      margin: var(--space-6) auto 0;
+      max-width: var(--measure-narrow);
+    }
+    @media (min-width: 481px) {
+      .question { padding: var(--space-8); }
+    }
+    .question p {
+      font-family: var(--f-serif);
+      font-size: var(--fs-22);
+      line-height: 1.55;
+      color: var(--fg);
+      margin: 0;
+    }
+    .question p + p { margin-top: var(--space-4); }
+    .question .emph { color: var(--mint); font-style: italic; }
+
+    /* ─────────────────────────────────────────────────── PREV / NEXT NAV */
+    .ep-nav {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-top: var(--space-24);
+    }
+    @media (min-width: 481px) {
+      .ep-nav {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-6);
+      }
+    }
+
+    .ep-nav__card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      background: var(--bg-2);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: var(--space-5);
+      min-height: 80px;
+      text-decoration: none;
+      color: var(--fg);
+      transition: border-color 150ms ease;
+    }
+    @media (min-width: 481px) {
+      .ep-nav__card { min-height: 96px; padding: var(--space-6); }
+    }
+    .ep-nav__card:hover,
+    .ep-nav__card:focus-visible {
+      border-color: var(--mint);
+    }
+    .ep-nav__card--next { text-align: right; }
+    .ep-nav__card--disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+    .ep-nav__card--disabled:hover { border-color: var(--rule); }
+
+    .ep-nav__dir {
+      font-family: var(--f-mono);
+      font-size: var(--fs-13);
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .ep-nav__day {
+      font-family: var(--f-mono);
+      font-size: var(--fs-14);
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+    }
+    .ep-nav__title {
+      font-family: var(--f-serif);
+      font-size: var(--fs-18);
+      font-weight: 500;
+      color: var(--fg);
+      line-height: 1.3;
+    }
+    .ep-nav__placeholder {
+      font-family: var(--f-serif);
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    /* ─────────────────────────────────────────────────── FOOTER */
+    .footer {
+      border-top: 2px solid var(--rule);
+      margin-top: var(--space-24);
+      padding: var(--space-6) var(--space-6) var(--space-12);
+      box-shadow: 0 -1px 0 var(--rule-soft);
+    }
+    .footer__inner {
+      max-width: var(--measure-wide);
+      margin: 0 auto;
+      font-family: var(--f-mono);
+      font-size: var(--fs-13);
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+    }
+    .footer__attribution { max-width: 480px; margin: 0 0 var(--space-3); }
+    .footer__attribution a {
+      color: var(--mint-soft);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .footer__attribution a:hover,
+    .footer__attribution a:focus-visible { color: var(--mint); }
+
+    .footer__links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 150ms ease;
+      padding: var(--space-1) 0;
+    }
+    .footer__links a:hover,
+    .footer__links a:focus-visible { color: var(--mint); }
+    .footer__links .sep { color: var(--rule); }
+
+    /* selection — uses palette accent so it works in both modes */
+    ::selection {
+      background: var(--selection-bg);
+      color: var(--selection-fg);
+    }
+
+    /* ─────────────────────────────────────────────────── PRINT */
+    /* Editorial reading sites print well by default — this stylesheet
+       strips chrome, forces high-contrast ink-on-paper, prints citation
+       URLs after external links, and prevents awkward page breaks in
+       the mental-model card and question block. */
+    @media print {
+      @page {
+        margin: 2cm;
+      }
+
+      :root {
+        /* Force black-ink-on-white-paper for legibility + ink economy */
+        --bg:         #ffffff;
+        --bg-2:       #ffffff;
+        --bg-3:       #ffffff;
+        --fg:         #000000;
+        --fg-muted:   #333333;
+        --muted:      #555555;
+        --rule:       #888888;
+        --rule-soft:  #bbbbbb;
+        --mint:       #000000;
+        --mint-soft:  #000000;
+        --amber:      #000000;
+        --amber-soft: #000000;
+      }
+
+      body {
+        font-size: 11pt;
+        line-height: 1.55;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Hide chrome that's only useful on-screen */
+      .masthead__nav,
+      .back-nav,
+      .ep-nav,
+      .footer__links,
+      hr.thin {
+        display: none !important;
+      }
+
+      /* Compact masthead — keep title only */
+      .masthead {
+        border-bottom: 1pt solid #888;
+        padding: 0 0 6pt 0;
+        margin-bottom: 12pt;
+        box-shadow: none;
+      }
+      .masthead__inner {
+        max-width: none;
+        display: block;
+      }
+      .masthead__title {
+        font-size: 10pt;
+        letter-spacing: 0.10em;
+      }
+      .masthead__title::before { color: #000; }
+
+      /* Page container — full bleed, narrow text measure */
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+      .back-nav, .meta, .title, .lead, .ep-nav,
+      .section-h, .prose > p, .prose > ol, .prose > ul,
+      .mm-card, .question {
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      /* Meta strip — keep compact */
+      .meta {
+        font-size: 9pt;
+        margin-bottom: 12pt;
+        color: #333;
+      }
+      .meta__sep, .meta__label { color: #777; }
+      .meta__value { font-size: 10pt; color: #333; }
+      .badge { color: #000; }
+
+      /* Title + lead */
+      .title {
+        font-size: 22pt;
+        color: #000;
+        margin: 6pt 0 6pt;
+      }
+      .lead {
+        font-size: 12pt;
+        margin-bottom: 14pt;
+        color: #333;
+      }
+
+      /* Section headers — keep with next paragraph */
+      .section-h {
+        font-size: 10pt;
+        margin: 16pt 0 4pt;
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      .section-h::before { color: #000; }
+
+      /* Prose — avoid orphans/widows */
+      .prose > p {
+        orphans: 3;
+        widows: 3;
+        margin-bottom: 9pt;
+      }
+      .prose ol li::marker, .prose ul li::marker { color: #000; }
+
+      /* Mental model card — no break inside, simple border */
+      .mm-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        background: #fff;
+        border: 1pt solid #888;
+        padding: 8pt 10pt;
+        overflow: visible;
+      }
+      .mm-card thead th {
+        color: #000;
+        border-bottom: 1pt solid #888;
+        font-size: 9pt;
+      }
+      .mm-card tbody td {
+        border-bottom-color: #ccc;
+        font-size: 10pt;
+      }
+      .mm-card tbody td:first-child { color: #000; }
+      .mm-card code {
+        background: #f4f4f4;
+        color: #000;
+      }
+
+      /* Question block — no break, plain border */
+      .question {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        background: #fafafa;
+        border: 1pt solid #888;
+        border-left: 3pt solid #000;
+        padding: 10pt 14pt;
+      }
+      .question p { font-size: 12pt; color: #000; }
+      .question .emph { color: #000; font-style: italic; }
+
+      /* Print URLs after external links for citation */
+      .prose a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        font-weight: 400;
+        color: #555;
+        word-break: break-all;
+      }
+      .prose a { color: #000; text-decoration: underline; }
+
+      /* Compact footer */
+      .footer {
+        border-top: 1pt solid #888;
+        margin-top: 18pt;
+        padding: 6pt 0 0;
+        box-shadow: none;
+      }
+      .footer__inner { max-width: none; }
+      .footer__attribution {
+        font-size: 9pt;
+        color: #555;
+      }
+      .footer__attribution a { color: #555; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <span class="masthead__title">The Tessera Notebook <span class="vol">· Vol. 1</span></span>
+    <nav class="masthead__nav">
+      <a href="/">home</a>
+      <span class="sep">·</span>
+      <a href="/season-1">seasons</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+
+  <a class="back-nav" href="/season-1">← /season-1</a>
+
+  <div class="meta" aria-label="Episode metadata">
+    <div class="meta__row">
+      <span class="badge badge--feature">[ FEATURE ]</span>
+      <span class="meta__sep">·</span>
+      <span>DAY 01</span>
+      <span class="meta__sep">·</span>
+      <time class="meta__time" datetime="2026-05-21">2026-05-21</time>
+    </div>
+    <div class="meta__row">
+      <span class="meta__label">concept</span>
+      <span class="meta__value">The 8 fallacies of distributed computing</span>
+    </div>
+  </div>
+
+  <h1 class="title">Two regions by Friday</h1>
+
+  <p class="lead">
+    The list everyone has heard and almost nobody uses as a checklist.
+  </p>
+
+  <hr class="thin" />
+
+  <article class="prose">
+
+    <h2 class="section-h" id="scene">Scene</h2>
+
+    <p>Tessera's eu-west-1 dashboard has been green for three weeks. Kiran stops by the engineering room a little after 11 with the news: Ledgerline Tech signed on Tuesday, they're in New York, and they want sub-100ms latency from a US-east endpoint by Friday.</p>
+
+    <p>Diego looks up from his terminal. "Friday this week?"</p>
+
+    <p>"Friday this week."</p>
+
+    <p>The room goes quiet, the way rooms do when an ambitious schedule meets the physics of distributed systems. Kiran pulls up the architecture diagram on the wall display: one VM, one Postgres, one Go service, one region — twelve thousand miles from where Ledgerline Tech's traffic is about to originate.</p>
+
+    <p>Anjali, three weeks into the job, closes her laptop and walks to the whiteboard. "Before we talk about what we're going to build," she says, "we should write down what we already know we're going to get wrong."</p>
+
+    <p>She uncaps the marker. On the whiteboard, in steady hand: <em>The eight fallacies of distributed computing.</em></p>
+
+    <p>Wim, who has been at Tessera longest of anyone — twenty-two months — recognises the list immediately. He pulls a chair closer. "Let's go through them," he says. "All of them. Before we touch the diagram."</p>
+
+    <h2 class="section-h" id="concept">The concept it surfaces</h2>
+
+    <p>Peter Deutsch (and later James Gosling) at Sun Microsystems in the 90s noticed that engineers building distributed systems repeatedly made the same wrong assumptions. They wrote them down — eight assumptions, each of which is <em>false in production</em> and <em>invisible in dev</em>:</p>
+
+    <ol>
+      <li><strong>The network is reliable.</strong> Packets drop. Routes flap. Cloud providers have bad days. Every network call is a <em>probability</em> of success, never a certainty.</li>
+      <li><strong>Latency is zero.</strong> Even in the same datacenter, a round-trip is ~0.5ms. Across regions, 50–200ms. Stacking ten sequential calls burns the user's patience before the request finishes.</li>
+      <li><strong>Bandwidth is infinite.</strong> You can saturate a 10Gbps link. You will, the day someone uploads a video.</li>
+      <li><strong>The network is secure.</strong> There is no "internal network" — only the network, with varying degrees of compromise.</li>
+      <li><strong>Topology doesn't change.</strong> Pods get rescheduled. IPs get recycled. DNS caches lie. The map you cached 10 seconds ago is already stale.</li>
+      <li><strong>There is one administrator.</strong> Other teams own the services you depend on. They will deploy without telling you. They will rename things.</li>
+      <li><strong>Transport cost is zero.</strong> Marshalling, encryption, kernel buffer copies — at scale, this dominates CPU.</li>
+      <li><strong>The network is homogeneous.</strong> Mobile clients have different MTUs than desktop. Some users are on satellite Internet from a moving train. Your protocol must survive all of it.</li>
+    </ol>
+
+    <p>The fallacies aren't a <em>theorem</em>. They're a <em>vibe check</em>. Before any distributed-systems design ships, walk the list and ask: <em>what does my system do when this is violated?</em> If the answer for any item is "it crashes" or "it returns wrong data silently" — that's a design bug, not an edge case.</p>
+
+    <p>The list earns its keep as a habit, not a theorem. Walked before the diagram, it forces failure modes into the design phase. Walked only after an outage, it's a postmortem checklist.</p>
+
+    <h2 class="section-h" id="mental-model">Mental model</h2>
+
+    <div class="mm-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Fallacy</th>
+            <th>What naive code looks like</th>
+            <th>What survives production</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Network reliable</td><td><code>client.call(req)</code></td><td>Retry + backoff + idempotency key + circuit breaker</td></tr>
+          <tr><td>Latency zero</td><td>5 sequential remote calls</td><td>Parallel + cached + with a budget</td></tr>
+          <tr><td>Bandwidth infinite</td><td>Send full payload always</td><td>Deltas + compression + pagination</td></tr>
+          <tr><td>Network secure</td><td>Trust internal IPs</td><td>mTLS + identity check + zero trust</td></tr>
+          <tr><td>Topology stable</td><td>Cache resolved IP</td><td>Re-resolve + connection draining + health checks</td></tr>
+          <tr><td>One admin</td><td>Hard-code dependency endpoints</td><td>Service discovery + versioned APIs + graceful degradation</td></tr>
+          <tr><td>Transport free</td><td>JSON everywhere</td><td>Schema + binary protocol on hot paths</td></tr>
+          <tr><td>Homogeneous</td><td>Assume HTTP/2 + TLS 1.3</td><td>Negotiate + fallback + measure</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="section-h" id="question">One question to journal</h2>
+
+    <div class="question">
+      <p>Pick one service you own. Walk through all 8 fallacies. For each, write one sentence: <span class="emph">"If this is violated, my service responds by ___."</span> If you can't finish a sentence — that's the gap to close this week.</p>
+    </div>
+
+    <h2 class="section-h" id="tomorrow">Tomorrow</h2>
+
+    <p><strong>Day 2 — The first ocean.</strong> Sunday's postmortem after the Friday push. Retry-without-backoff amplifies a network blip 12× across the Atlantic. CAP arrives through pain.</p>
+
+  </article>
+
+  <hr class="thin thin--centered" />
+
+  <nav class="ep-nav" aria-label="Episode navigation">
+    <span class="ep-nav__card ep-nav__card--prev ep-nav__card--disabled" aria-hidden="true">
+      <span class="ep-nav__dir">← previous</span>
+      <span class="ep-nav__placeholder">— first episode —</span>
+    </span>
+    <a class="ep-nav__card ep-nav__card--next" href="/season-1/the-first-ocean">
+      <span class="ep-nav__dir">next →</span>
+      <span class="ep-nav__day">Day 02</span>
+      <span class="ep-nav__title">The first ocean</span>
+    </a>
+  </nav>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <p class="footer__attribution">
+      Part of <a href="https://arcanelabs.info">arcanelabs.info</a> — a multi-year platform-engineering serial by arcanelabs.
+    </p>
+    <p class="footer__links">
+      <a href="https://github.com/arcanelabsio/tessera-notebook">github</a>
+      <span class="sep">·</span>
+      <a href="https://instagram.com/labs.arcane">@labs.arcane</a>
+      <span class="sep">·</span>
+      <a href="/feed.xml">rss</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

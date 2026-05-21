@@ -1,0 +1,450 @@
+/* Component-specific styles layered on top of theme.css. Theme.css owns
+   palette, type scale, spacing, masthead/footer/article chrome, mental-
+   model + question-block cards, prev/next nav, and print. This file owns
+   page-level layout for the home, season-index, and docs surfaces. */
+
+/* ─────────────────────────────────────── HOME PAGE ─────────────────────── */
+
+.home-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--f-mono);
+  font-size: var(--fs-16);
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  margin: var(--space-16) auto var(--space-6);
+  max-width: var(--measure);
+}
+.home-section::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+  margin-left: var(--space-3);
+}
+.home-section:first-of-type { margin-top: 0; }
+
+.greeting {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--fs-22);
+  color: var(--fg-muted);
+  text-align: center;
+  max-width: var(--measure-wide);
+  margin: 0 auto var(--space-16);
+}
+
+.today-card {
+  display: block;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--mint);
+  border-radius: 6px;
+  padding: var(--space-8);
+  margin: 0 auto;
+  max-width: var(--measure);
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 150ms ease;
+}
+@media (max-width: 480px) { .today-card { padding: var(--space-6); } }
+.today-card:hover,
+.today-card:focus-visible {
+  border-color: var(--mint);
+}
+.today-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: baseline;
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-5);
+}
+.today-card__today { color: var(--mint); letter-spacing: 0.10em; }
+.today-card__title {
+  font-family: var(--f-serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--mint);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0 0 var(--space-4);
+}
+@media (min-width: 768px) {
+  .today-card__title { font-size: var(--fs-44); }
+}
+.today-card__desc {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--fs-22);
+  color: var(--fg-muted);
+  line-height: 1.5;
+  margin: 0 0 var(--space-6);
+}
+.today-card__cta {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--mint);
+  letter-spacing: 0.10em;
+}
+
+.seasons-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+@media (min-width: 481px) {
+  .seasons-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.season-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: var(--space-6);
+  min-height: 180px;
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 150ms ease;
+}
+.season-card:hover,
+.season-card:focus-visible {
+  border-color: var(--mint);
+}
+.season-card--coming { cursor: default; }
+.season-card--coming:hover { border-color: var(--rule); }
+.season-card__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.10em;
+}
+.season-card__title {
+  font-family: var(--f-serif);
+  font-size: var(--fs-22);
+  font-weight: 600;
+  color: var(--mint);
+  line-height: 1.3;
+  margin: 0;
+}
+.season-card--coming .season-card__title { color: var(--fg-muted); }
+.season-card__tier {
+  font-family: var(--f-mono);
+  font-size: var(--fs-12);
+  color: var(--amber);
+  letter-spacing: 0.04em;
+}
+.season-card__rule {
+  width: 24px;
+  border: 0;
+  border-top: 1px solid var(--rule-soft);
+  margin: var(--space-2) 0;
+}
+.season-card__count {
+  font-family: var(--f-mono);
+  font-size: var(--fs-12);
+  color: var(--muted);
+}
+.season-card__count--coming { font-style: italic; }
+
+.intro-body {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+.intro-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-serif);
+  font-size: var(--fs-16);
+  margin: var(--space-6) 0;
+}
+.intro-body thead th {
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0 var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+.intro-body tbody td {
+  padding: var(--space-3);
+  vertical-align: top;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.intro-body tbody tr:last-child td { border-bottom: 0; }
+.intro-body tbody td:first-child {
+  font-weight: 500;
+  color: var(--mint-soft);
+}
+
+/* ─────────────────────────────────────── SEASON INDEX ──────────────────── */
+
+.season-hero {
+  max-width: var(--measure);
+  margin: 0 auto var(--space-12);
+}
+.season-hero__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.season-hero__title {
+  font-family: var(--f-serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--mint);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0 0 var(--space-4);
+}
+@media (min-width: 768px) {
+  .season-hero__title { font-size: var(--fs-36); }
+}
+.season-hero__tier {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: var(--fs-13);
+  color: var(--amber);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-4);
+}
+.season-hero__desc {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--fs-22);
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.arc-block { max-width: var(--measure); margin: var(--space-16) auto 0; }
+.arc-block__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.arc-block__label .arc-num { color: var(--mint); }
+.arc-block__name {
+  font-family: var(--f-serif);
+  font-size: var(--fs-22);
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0 0 var(--space-4);
+}
+.arc-block__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ep-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: var(--space-5);
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 150ms ease;
+  min-height: 60px;
+}
+.ep-row:hover, .ep-row:focus-visible { border-color: var(--mint); }
+.ep-row--coming { cursor: default; opacity: 0.78; }
+.ep-row--coming:hover { border-color: var(--rule); }
+.ep-row__top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: baseline;
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 500;
+  color: var(--fg);
+}
+.ep-row__title {
+  font-family: var(--f-serif);
+  font-size: var(--fs-22);
+  font-weight: 500;
+  color: var(--mint);
+  line-height: 1.3;
+  margin: 0;
+}
+.ep-row--coming .ep-row__title { color: var(--fg-muted); }
+.ep-row__concept {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--fs-16);
+  color: var(--fg-muted);
+}
+.ep-row__bottom {
+  display: flex;
+  gap: var(--space-3);
+  font-family: var(--f-mono);
+  font-size: var(--fs-12);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.ep-row__cta { color: var(--mint); }
+.ep-row--coming .ep-row__cta { color: var(--muted); font-style: italic; }
+
+.ep-row--read::after {
+  content: "✓";
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  color: var(--mint-soft);
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+}
+.ep-row { position: relative; }
+
+.empty-state {
+  max-width: var(--measure);
+  margin: var(--space-16) auto;
+  padding: var(--space-12);
+  text-align: center;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.empty-state p {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--fs-22);
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────── DOCS ──────────────────────────── */
+
+.docs-hero {
+  max-width: var(--measure);
+  margin: 0 auto var(--space-12);
+}
+.docs-hero__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.docs-hero__title {
+  font-family: var(--f-serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--mint);
+  line-height: 1.2;
+  margin: 0 0 var(--space-4);
+}
+@media (min-width: 768px) { .docs-hero__title { font-size: var(--fs-36); } }
+.docs-hero__desc {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--fs-22);
+  line-height: 1.5;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.docs-list {
+  max-width: var(--measure);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.doc-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: var(--space-5);
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color 150ms ease;
+}
+.doc-row:hover, .doc-row:focus-visible { border-color: var(--mint); }
+.doc-row__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.doc-row__title {
+  font-family: var(--f-serif);
+  font-size: var(--fs-22);
+  font-weight: 500;
+  color: var(--mint);
+  line-height: 1.3;
+  margin: 0;
+}
+.doc-row__date {
+  font-family: var(--f-mono);
+  font-size: var(--fs-12);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.doc-meta {
+  max-width: var(--measure);
+  margin: 0 auto var(--space-8);
+  font-family: var(--f-mono);
+  font-size: var(--fs-14);
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+}
+.doc-meta__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+}
+.doc-meta__label {
+  font-size: var(--fs-12);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.10em;
+  min-width: 72px;
+}
+.doc-meta__value { color: var(--fg-muted); }
+.doc-meta__status--accepted { color: var(--mint); }
+.doc-meta__status--proposed { color: var(--amber); }
+.doc-meta__status--superseded { color: var(--muted); font-style: italic; }
