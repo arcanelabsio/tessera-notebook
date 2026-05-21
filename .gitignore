@@ -18,6 +18,9 @@ node_modules/
 dist/
 dist-ssr/
 
+# TypeScript incremental build artifacts (build cache; not source)
+*.tsbuildinfo
+
 # Local previews / scratch (not for committing)
 /preview/
 /_drafts/
