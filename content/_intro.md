@@ -30,21 +30,12 @@ The journal question is where the takeaway lives. The episodes don't conclude wi
 
 ## Who you'll meet
 
-Tessera's crew is fixed; behaviour is the texture. You learn who each character is by watching them work, not from narrator essays. New voices walk into the room as the company grows — they're introduced in the episode they first show up in, not before.
-
 - **Kiran** (CTO, co-founder) sets ambitious schedules and means them.
 - **Anjali** (founding engineer, later titled Staff) is the one who pauses for five seconds in a design review before answering — and the conversation reframes.
 - **Diego** (founding engineer, later SRE lead) speaks last in the war room, decisively.
 - **Wim** (longest-tenured) knows where the bodies are buried in the legacy code.
 
 There are no villains. The antagonists are scale, complexity, technical debt, and customer pressure — never people.
-
-## What this is not
-
-- **Not a transformation arc.** Nobody becomes a Staff engineer in 100 episodes. Recognition is the goal: when you've watched Anjali reframe a problem twenty times, you start catching yourself doing the same kind of reframe in your own design reviews. That's the win.
-- **Not a course with an exam.** The episodes are 7 minutes by design. They are not lectures. The work is in the journal question and the second cup of coffee where you argue with what you just read.
-- **Not safe positions only.** Every episode takes one position and defends it. If you disagree with a position, that disagreement is the most useful thing the episode produced for you.
-- **Not a 1:1 retelling.** Every Tessera incident is a composite of patterns that appear in DDIA, the Google SRE book, CNCF talks, and the wider public technical literature. No specific employer is depicted.
 
 ## Where to start
 
