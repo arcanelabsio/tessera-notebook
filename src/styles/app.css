@@ -8,14 +8,14 @@
 .home-section {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-4);
   font-family: var(--f-mono);
-  font-size: var(--fs-16);
+  font-size: var(--fs-14);
   font-weight: 600;
-  color: var(--amber);
-  letter-spacing: 0.10em;
+  color: var(--muted);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin: var(--space-16) auto var(--space-6);
+  margin: var(--space-24) auto var(--space-8);
   max-width: var(--measure);
 }
 .home-section::after {
@@ -26,34 +26,36 @@
   margin-left: var(--space-3);
 }
 .home-section:first-of-type { margin-top: 0; }
+@media (min-width: 768px) {
+  .home-section { margin-top: var(--space-32); }
+}
 
 .greeting {
   font-family: var(--f-serif);
   font-style: italic;
-  font-size: var(--fs-22);
+  font-size: var(--fs-26);
+  line-height: 1.45;
   color: var(--fg-muted);
   text-align: center;
   max-width: var(--measure-wide);
-  margin: 0 auto var(--space-16);
+  margin: 0 auto var(--space-20);
+}
+@media (min-width: 768px) {
+  .greeting { font-size: var(--fs-32); margin-bottom: var(--space-24); }
 }
 
+/* De-boxed today hero — the home page's signature element. A single
+   thin mint top rule signals "this is today's piece" without making
+   it look like a card component. The breathing room around the
+   title and lead does the visual work that the box used to do. */
 .today-card {
   display: block;
-  background: var(--bg-2);
-  border: 1px solid var(--rule);
-  border-top: 3px solid var(--mint);
-  border-radius: 6px;
-  padding: var(--space-8);
+  padding: var(--space-8) 0 0;
   margin: 0 auto;
   max-width: var(--measure);
+  border-top: 2px solid var(--mint);
   text-decoration: none;
   color: var(--fg);
-  transition: border-color 150ms ease;
-}
-@media (max-width: 480px) { .today-card { padding: var(--space-6); } }
-.today-card:hover,
-.today-card:focus-visible {
-  border-color: var(--mint);
 }
 .today-card__meta {
   display: flex;
@@ -61,28 +63,34 @@
   gap: var(--space-3);
   align-items: baseline;
   font-family: var(--f-mono);
-  font-size: var(--fs-14);
+  font-size: var(--fs-13);
   font-weight: 600;
   color: var(--fg-muted);
-  letter-spacing: 0.04em;
-  margin-bottom: var(--space-5);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
 }
-.today-card__today { color: var(--mint); letter-spacing: 0.10em; }
+.today-card__today { color: var(--mint); letter-spacing: 0.16em; }
 .today-card__title {
   font-family: var(--f-serif);
-  font-size: var(--fs-28);
+  font-size: var(--fs-32);
   font-weight: 700;
   color: var(--mint);
-  line-height: 1.2;
-  letter-spacing: -0.005em;
-  margin: 0 0 var(--space-4);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  margin: 0 0 var(--space-5);
   overflow-wrap: anywhere;
+  transition: color 150ms ease;
 }
 @media (min-width: 481px) {
-  .today-card__title { font-size: var(--fs-36); }
+  .today-card__title { font-size: var(--fs-44); }
 }
 @media (min-width: 768px) {
-  .today-card__title { font-size: var(--fs-44); }
+  .today-card__title { font-size: var(--fs-52); margin-bottom: var(--space-6); }
+}
+.today-card:hover .today-card__title,
+.today-card:focus-visible .today-card__title {
+  color: var(--mint-soft);
 }
 .today-card__desc {
   font-family: var(--f-serif);
@@ -90,79 +98,80 @@
   font-size: var(--fs-22);
   color: var(--fg-muted);
   line-height: 1.5;
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-8);
+}
+@media (min-width: 768px) {
+  .today-card__desc { font-size: var(--fs-26); margin-bottom: var(--space-10); }
 }
 .today-card__cta {
   display: inline-block;
   font-family: var(--f-mono);
-  font-size: var(--fs-14);
+  font-size: var(--fs-13);
   font-weight: 600;
   color: var(--mint);
-  letter-spacing: 0.10em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .seasons-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
+  gap: var(--space-10);
   max-width: var(--measure);
   margin: 0 auto;
 }
 @media (min-width: 481px) {
-  .seasons-grid { grid-template-columns: 1fr 1fr; }
+  .seasons-grid { grid-template-columns: 1fr 1fr; gap: var(--space-12); }
 }
 
+/* De-boxed season card — same editorial discipline as the today
+   hero. A thin top rule frames the block, breathing room around the
+   title and count carry the visual weight. */
 .season-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  background: var(--bg-2);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: var(--space-6);
-  min-height: 180px;
+  padding: var(--space-5) 0 0;
+  border-top: 1px solid var(--rule);
+  min-height: 0;
   text-decoration: none;
   color: var(--fg);
   transition: border-color 150ms ease;
 }
 .season-card:hover,
-.season-card:focus-visible {
-  border-color: var(--mint);
-}
+.season-card:focus-visible { border-top-color: var(--mint); }
 .season-card--coming { cursor: default; }
-.season-card--coming:hover { border-color: var(--rule); }
+.season-card--coming:hover { border-top-color: var(--rule); }
 .season-card__label {
   font-family: var(--f-mono);
   font-size: var(--fs-13);
   font-weight: 600;
   color: var(--muted);
-  letter-spacing: 0.10em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 .season-card__title {
   font-family: var(--f-serif);
-  font-size: var(--fs-22);
+  font-size: var(--fs-26);
   font-weight: 600;
   color: var(--mint);
-  line-height: 1.3;
+  line-height: 1.25;
   margin: 0;
 }
 .season-card--coming .season-card__title { color: var(--fg-muted); }
 .season-card__tier {
   font-family: var(--f-mono);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--amber);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
-.season-card__rule {
-  width: 24px;
-  border: 0;
-  border-top: 1px solid var(--rule-soft);
-  margin: var(--space-2) 0;
-}
+.season-card__rule { display: none; }
 .season-card__count {
   font-family: var(--f-mono);
-  font-size: var(--fs-12);
+  font-size: var(--fs-13);
   color: var(--muted);
+  margin-top: var(--space-2);
+  letter-spacing: 0.04em;
 }
 .season-card__count--coming { font-style: italic; }
 
@@ -179,33 +188,41 @@
    do, so we style the plain tags directly. */
 .intro-body h2 {
   font-family: var(--f-serif);
-  font-size: var(--fs-22);
+  font-size: var(--fs-26);
   font-weight: 600;
   color: var(--fg);
-  line-height: 1.3;
-  margin: var(--space-12) 0 var(--space-4);
+  line-height: 1.25;
+  letter-spacing: -0.008em;
+  margin: var(--space-16) 0 var(--space-5);
 }
 .intro-body h2:first-child { margin-top: 0; }
+@media (min-width: 768px) {
+  .intro-body h2 {
+    font-size: var(--fs-32);
+    margin-top: var(--space-20);
+    margin-bottom: var(--space-6);
+  }
+}
 .intro-body h3 {
   font-family: var(--f-serif);
-  font-size: var(--fs-18);
+  font-size: var(--fs-20);
   font-weight: 600;
   color: var(--fg);
   line-height: 1.35;
-  margin: var(--space-8) 0 var(--space-3);
+  margin: var(--space-10) 0 var(--space-3);
 }
 .intro-body p {
-  margin: 0 0 var(--space-5);
-  line-height: 1.65;
+  margin: 0 0 var(--space-6);
+  line-height: 1.7;
 }
 .intro-body p:last-child { margin-bottom: 0; }
 .intro-body ul, .intro-body ol {
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-8);
   padding-left: var(--space-5);
 }
 .intro-body ul li, .intro-body ol li {
-  margin-bottom: var(--space-2);
-  line-height: 1.55;
+  margin-bottom: var(--space-3);
+  line-height: 1.65;
 }
 .intro-body ul li::marker { color: var(--amber); }
 .intro-body ol li::marker { color: var(--amber); font-family: var(--f-mono); }
@@ -303,33 +320,36 @@
 
 .season-hero {
   max-width: var(--measure);
-  margin: 0 auto var(--space-12);
+  margin: 0 auto var(--space-16);
+}
+@media (min-width: 768px) {
+  .season-hero { margin-bottom: var(--space-20); }
 }
 .season-hero__label {
   font-family: var(--f-mono);
-  font-size: var(--fs-14);
+  font-size: var(--fs-13);
   font-weight: 600;
   color: var(--muted);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   display: block;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 .season-hero__title {
   font-family: var(--f-serif);
-  font-size: var(--fs-28);
+  font-size: var(--fs-32);
   font-weight: 700;
   color: var(--mint);
-  line-height: 1.2;
-  letter-spacing: -0.005em;
-  margin: 0 0 var(--space-4);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  margin: 0 0 var(--space-5);
   overflow-wrap: anywhere;
 }
 @media (min-width: 481px) {
-  .season-hero__title { font-size: 32px; }
+  .season-hero__title { font-size: var(--fs-44); }
 }
 @media (min-width: 768px) {
-  .season-hero__title { font-size: var(--fs-36); }
+  .season-hero__title { font-size: var(--fs-52); }
 }
 .season-hero__tier {
   display: inline-block;
@@ -348,46 +368,57 @@
   margin: 0;
 }
 
-.arc-block { max-width: var(--measure); margin: var(--space-16) auto 0; }
+.arc-block { max-width: var(--measure); margin: var(--space-20) auto 0; }
+@media (min-width: 768px) {
+  .arc-block { margin-top: var(--space-24); }
+}
 .arc-block__label {
   font-family: var(--f-mono);
-  font-size: var(--fs-14);
+  font-size: var(--fs-13);
   font-weight: 600;
   color: var(--amber);
-  letter-spacing: 0.10em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   margin-bottom: var(--space-3);
 }
 .arc-block__label .arc-num { color: var(--mint); }
 .arc-block__name {
   font-family: var(--f-serif);
-  font-size: var(--fs-22);
+  font-size: var(--fs-26);
   font-weight: 600;
   color: var(--fg);
-  margin: 0 0 var(--space-4);
+  line-height: 1.25;
+  margin: 0 0 var(--space-6);
 }
+@media (min-width: 768px) {
+  .arc-block__name { font-size: var(--fs-28); }
+}
+/* Gap of 0 so each ep-row's top rule butts directly against the
+   previous row's bottom — reads as a continuous editorial list
+   rather than a stack of separate cards. */
 .arc-block__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 0;
+  border-bottom: 1px solid var(--rule-soft);
 }
 
+/* De-boxed episode row — a quiet top rule frames each row and the
+   hover state shifts that rule to mint. No filled background, no
+   rounded card. Reads as a list of pieces, not a UI of cards. */
 .ep-row {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  background: var(--bg-2);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  padding: var(--space-5);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--rule-soft);
   text-decoration: none;
   color: var(--fg);
   transition: border-color 150ms ease;
-  min-height: 60px;
 }
-.ep-row:hover, .ep-row:focus-visible { border-color: var(--mint); }
-.ep-row--coming { cursor: default; opacity: 0.78; }
-.ep-row--coming:hover { border-color: var(--rule); }
+.ep-row:hover, .ep-row:focus-visible { border-top-color: var(--mint); }
+.ep-row--coming { cursor: default; opacity: 0.7; }
+.ep-row--coming:hover { border-top-color: var(--rule-soft); }
 .ep-row__top {
   display: flex;
   flex-wrap: wrap;
