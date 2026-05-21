@@ -1,7 +1,5 @@
 import { splitFrontmatter } from "./frontmatter";
 import type {
-  Doc,
-  DocStatus,
   Episode,
   Intro,
   SceneType,
@@ -13,12 +11,6 @@ import type {
 // index is synchronous; total content size is well under the threshold
 // where per-route splitting would matter.
 const EPISODE_RAW = import.meta.glob("/content/episodes/*/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
-
-const DOC_RAW = import.meta.glob("/content/architecture/*.md", {
   query: "?raw",
   import: "default",
   eager: true,
@@ -65,20 +57,6 @@ function asSceneType(v: unknown): SceneType {
   return "feature";
 }
 
-const DOC_STATUSES: ReadonlySet<DocStatus> = new Set([
-  "Proposed",
-  "Accepted",
-  "Superseded",
-  "Deprecated",
-]);
-
-function asDocStatus(v: unknown): DocStatus {
-  if (typeof v === "string" && DOC_STATUSES.has(v as DocStatus)) {
-    return v as DocStatus;
-  }
-  return "Accepted";
-}
-
 // --- parsers --------------------------------------------------------
 
 const EPISODE_FILE =
@@ -113,30 +91,6 @@ function parseEpisode(path: string, raw: string): Episode {
           : null,
     body,
     url: `/${seasonFromPath}/${slugFromPath}`,
-  };
-}
-
-const DOC_FILE = /^\/content\/architecture\/([a-z0-9-]+)\.md$/;
-
-function parseDoc(path: string, raw: string): Doc {
-  const match = DOC_FILE.exec(path);
-  if (!match) {
-    throw new Error(
-      `doc filename must match /content/architecture/<slug>.md — got ${path}`,
-    );
-  }
-  const [, slug] = match;
-  const { data, body } = splitFrontmatter(raw);
-  return {
-    slug,
-    id: asString(data.id, slug),
-    title: asString(data.title, slug),
-    status: asDocStatus(data.status),
-    date: asIsoDate(data.date),
-    supersedes: data.supersedes ? asString(data.supersedes) : null,
-    supersededBy: data.superseded_by ? asString(data.superseded_by) : null,
-    body,
-    url: `/docs/${slug}`,
   };
 }
 
@@ -273,21 +227,6 @@ export function getNeighbours(ep: Episode): {
         ? season.episodes[idx + 1]
         : undefined,
   };
-}
-
-// --- docs -----------------------------------------------------------
-
-export const docs: Doc[] = Object.entries(DOC_RAW)
-  .map(([p, raw]) => parseDoc(p, raw))
-  .sort((a, b) => {
-    // Sort by date desc; ties resolved by id asc (stable).
-    if (a.date !== b.date) return b.date.localeCompare(a.date);
-    return a.id.localeCompare(b.id);
-  });
-
-export function getDoc(slug: string | undefined): Doc | undefined {
-  if (!slug) return undefined;
-  return docs.find((d) => d.slug === slug);
 }
 
 // --- intro ----------------------------------------------------------

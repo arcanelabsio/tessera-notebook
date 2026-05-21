@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 export function Masthead() {
   const { pathname } = useLocation();
   const onSeasonOrEpisode = /^\/season-\d/.test(pathname);
-  const onDocs = pathname.startsWith("/docs");
   return (
     <header className="masthead">
       <div className="masthead__inner">
@@ -22,10 +21,6 @@ export function Masthead() {
             aria-current={onSeasonOrEpisode ? "true" : undefined}
           >
             seasons
-          </Link>
-          <span className="sep">·</span>
-          <Link to="/docs" aria-current={onDocs ? "true" : undefined}>
-            docs
           </Link>
         </nav>
       </div>

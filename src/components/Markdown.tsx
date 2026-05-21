@@ -9,7 +9,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 type Props = {
   source: string;
   // 'episode' — h2 is rendered as the section-h mono spaced-caps label
-  //             (used by the Episode route + Doc route)
+  //             (used by the Episode route)
   // 'inline'  — h2 stays as plain serif heading (used inside cards)
   variant?: "episode" | "inline";
 };

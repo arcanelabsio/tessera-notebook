@@ -35,17 +35,3 @@ export type Intro = {
   greeting: string;
   body: string;
 };
-
-export type DocStatus = "Proposed" | "Accepted" | "Superseded" | "Deprecated";
-
-export type Doc = {
-  slug: string;
-  id: string;
-  title: string;
-  status: DocStatus;
-  date: string;
-  supersedes: string | null;
-  supersededBy: string | null;
-  body: string;
-  url: string; // /docs/<slug>
-};
