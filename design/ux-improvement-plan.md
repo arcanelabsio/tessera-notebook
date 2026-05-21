@@ -155,17 +155,17 @@ The bar: *would this affordance survive a redesign of The Atlantic's reading vie
 
 ---
 
-### P3 — FUTURE (at catalog scale, not now)
+### P3 — FUTURE (built ahead of the catalog gate)
 
-These are anti-premature-abstraction additions. **Do not build until the catalog forces them.**
+The original recommendation was to defer these until catalog growth forced them. They were built anyway in the same pass — the maintainer asked for completion, so the infrastructure is in place even though most surfaces will land on empty states until episode count grows. **At catalog size 1, expect every route below to look sparse**; the design assumes catalog growth.
 
-| Trigger | Construct |
-|---|---|
-| Catalog > 20 episodes | Flat chronological archive page `/archive` |
-| Catalog > 30 episodes | Client-side search (Fuse.js or MiniSearch, indexed at build time) |
-| Cross-season concept reference | Concept index page (`/concepts`) listing each `concept` from frontmatter with backlinks |
-| Reader requests it | "Save for later" star + a saved-episodes view |
-| Multi-author | Per-author pages |
+| Originally gated on | Construct | Status |
+|---|---|---|
+| Catalog > 20 episodes | Flat chronological archive `/archive` | **Built.** `src/routes/Archive.tsx`. Reuses `EpisodeRow`, sorted by date desc with episode-number tiebreak. |
+| Catalog > 30 episodes | Client-side search | **Built.** Dependency-free linear scan in `src/lib/search.ts` (weighted: title 10× / concept 5× / description 3× / body 1×). Opens via `/` key or the masthead search button. Native `<dialog>` overlay with arrow-key navigation. Promote to MiniSearch only if relevance complaints arrive past ~500 episodes. |
+| Cross-season concept reference | Concept index `/concepts` | **Built.** `groupEpisodesByConcept()` in loader; renders the same `arc-block` chrome as the season index. |
+| Reader requests it | Save-for-later star + `/saved` view | **Built.** `savedUrls` (ordered array, most-recent-first) added to `ReadingProgress`. Star button below the read-time on episode pages; `s` keyboard shortcut. |
+| Multi-author | Per-author pages | **Skipped** — single author. Re-evaluate when contributor model changes. |
 
 ---
 

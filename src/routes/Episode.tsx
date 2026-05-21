@@ -6,6 +6,7 @@ import { EpisodeMeta } from "../components/EpisodeMeta";
 import { EpisodeBody } from "../components/EpisodeBody";
 import { EpisodeNav } from "../components/EpisodeNav";
 import { ReadingProgressBar } from "../components/ReadingProgressBar";
+import { SaveButton } from "../components/SaveButton";
 import { SectionBeat } from "../components/SectionBeat";
 import { useReadingProgress } from "../state/ReadingProgress";
 import { useDocumentTitle, pageTitle } from "../content/head";
@@ -19,7 +20,7 @@ function pad(n: number, w = 2) {
 export function Episode() {
   const { season, slug } = useParams<{ season: string; slug: string }>();
   const ep = getEpisode(season, slug);
-  const { markRead, setLastVisited } = useReadingProgress();
+  const { markRead, setLastVisited, toggleSaved } = useReadingProgress();
   const navigate = useNavigate();
 
   useDocumentTitle(
@@ -73,6 +74,7 @@ export function Episode() {
       k: () => prev && go(prev.url),
       ArrowLeft: () => prev && go(prev.url),
       g: () => navigate("/"),
+      s: () => ep && toggleSaved(ep.url),
     },
     Boolean(ep),
   );
@@ -102,6 +104,10 @@ export function Episode() {
         <p className="read-time" aria-label="Estimated reading time">
           ~{ep.readMinutes} min read
         </p>
+
+        <div className="save-row">
+          <SaveButton url={ep.url} />
+        </div>
 
         <hr className="thin thin--centered" />
 

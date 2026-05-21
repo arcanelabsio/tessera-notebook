@@ -1,5 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
 
+// Triggers the SearchOverlay via a synthetic "/" keydown — keeps the
+// overlay self-contained (it owns its open state) and avoids a
+// context just for one boolean.
+function openSearch() {
+  const ev = new KeyboardEvent("keydown", { key: "/" });
+  document.dispatchEvent(ev);
+}
+
 export function Masthead() {
   const { pathname } = useLocation();
   const onSeasonOrEpisode = /^\/season-\d/.test(pathname);
@@ -22,6 +30,25 @@ export function Masthead() {
           >
             seasons
           </Link>
+          <span className="sep">·</span>
+          <Link
+            to="/archive"
+            aria-current={pathname === "/archive" ? "page" : undefined}
+          >
+            archive
+          </Link>
+          <span className="sep">·</span>
+          <button
+            type="button"
+            className="masthead__search"
+            onClick={openSearch}
+            aria-label="Search episodes (press /)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M10 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm5.5 8.1l5 5-1.4 1.4-5-5 1.4-1.4z" />
+            </svg>
+            <span className="masthead__search-text">search</span>
+          </button>
           <span className="sep">·</span>
           <a className="rss" href="/feed.xml" aria-label="RSS feed">
             <svg viewBox="0 0 24 24" aria-hidden="true">

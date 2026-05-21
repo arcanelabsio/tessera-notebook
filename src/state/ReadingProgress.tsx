@@ -18,6 +18,12 @@ type ReadingProgressState = {
   // (not yet wired into a UI but tracked from day one).
   lastVisited: string | null;
   setLastVisited: (url: string) => void;
+  // Save-for-later: ordered list (most-recent-first) of urls the
+  // reader has starred. Stored as array (not Set) so the /saved view
+  // renders in save-order without a separate timestamp store.
+  savedUrls: readonly string[];
+  isSaved: (url: string) => boolean;
+  toggleSaved: (url: string) => void;
 };
 
 const ReadingProgressContext = createContext<ReadingProgressState | null>(
@@ -26,6 +32,7 @@ const ReadingProgressContext = createContext<ReadingProgressState | null>(
 
 const READ_KEY = "tessera:reading-progress:v1";
 const LAST_KEY = "tessera:last-visited:v1";
+const SAVED_KEY = "tessera:saved:v1";
 
 export function ReadingProgressProvider({ children }: { children: ReactNode }) {
   const [readArray, setReadArray] = usePersisted<string[]>(READ_KEY, []);
@@ -33,8 +40,10 @@ export function ReadingProgressProvider({ children }: { children: ReactNode }) {
     LAST_KEY,
     null,
   );
+  const [savedArray, setSavedArray] = usePersisted<string[]>(SAVED_KEY, []);
 
   const readUrls = useMemo(() => new Set(readArray), [readArray]);
+  const savedSet = useMemo(() => new Set(savedArray), [savedArray]);
 
   const isRead = useCallback((url: string) => readUrls.has(url), [readUrls]);
 
@@ -55,6 +64,18 @@ export function ReadingProgressProvider({ children }: { children: ReactNode }) {
     [setReadArray],
   );
 
+  const isSaved = useCallback((url: string) => savedSet.has(url), [savedSet]);
+
+  const toggleSaved = useCallback(
+    (url: string) => {
+      setSavedArray((prev) => {
+        if (prev.includes(url)) return prev.filter((u) => u !== url);
+        return [url, ...prev];
+      });
+    },
+    [setSavedArray],
+  );
+
   const value: ReadingProgressState = {
     readUrls,
     isRead,
@@ -62,6 +83,9 @@ export function ReadingProgressProvider({ children }: { children: ReactNode }) {
     markUnread,
     lastVisited,
     setLastVisited,
+    savedUrls: savedArray,
+    isSaved,
+    toggleSaved,
   };
 
   return (

@@ -102,7 +102,13 @@ Client-side state is minimal and persisted to `localStorage`:
 - **Reading progress** — set of episode URLs the reader has opened. Surfaced as a `✓` indicator on already-read rows in season indexes, and as a `N of M read` line on home-page season cards. See `src/state/ReadingProgress.tsx`.
 - **Last visited** — surfaced as the home-page "Continue reading" affordance via `src/components/ResumeCard.tsx`; dismissible per-episode.
 
-Keyboard shortcuts (`?` opens the help dialog): `J` / `→` next, `K` / `←` previous, `G` home.
+Keyboard shortcuts (`?` opens the help dialog): `/` search, `J` / `→` next, `K` / `←` previous, `S` save/unsave, `G` home.
+
+Catalog navigation:
+
+- `/archive` — flat chronological list of every published episode.
+- `/concepts` — episodes grouped by their `concept` frontmatter value.
+- `/saved` — episodes the reader has starred (localStorage only; no account / sync).
 
 Theme honors **`prefers-color-scheme`** — light is the default, dark is rendered automatically for readers whose OS prefers dark. Both palettes live in `src/styles/theme.css` and stay in sync through semantic color tokens.
 

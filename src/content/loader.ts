@@ -225,6 +225,27 @@ export function groupEpisodesByArc(
   }));
 }
 
+// Group published episodes by their `concept` frontmatter value.
+// Concepts without a value are bucketed as "Unsorted". Episodes inside
+// each group keep their natural episode-number order; groups
+// themselves are returned in first-appearance order so the /concepts
+// page reads chronologically by curriculum, not alphabetically.
+export function groupEpisodesByConcept(): Array<{
+  concept: string;
+  episodes: Episode[];
+}> {
+  const groups = new Map<string, Episode[]>();
+  for (const ep of publishedEpisodes) {
+    const key = ep.concept.trim() || "Unsorted";
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(ep);
+  }
+  return Array.from(groups.entries()).map(([concept, eps]) => ({
+    concept,
+    episodes: eps,
+  }));
+}
+
 // Find neighbour episodes (prev/next) within the same season, ordered
 // by episode number. Returns { prev, next } either of which may be
 // undefined at the edges.

@@ -4,8 +4,10 @@ import { useKeyboardShortcuts } from "../hooks/useKeyboardShortcuts";
 type Binding = { keys: string[]; label: string };
 
 const BINDINGS: Binding[] = [
+  { keys: ["/"], label: "Search episodes" },
   { keys: ["J", "→"], label: "Next episode" },
   { keys: ["K", "←"], label: "Previous episode" },
+  { keys: ["S"], label: "Save / unsave this episode" },
   { keys: ["G"], label: "Go to home" },
   { keys: ["?"], label: "Show this dialog" },
   { keys: ["Esc"], label: "Close dialog" },
