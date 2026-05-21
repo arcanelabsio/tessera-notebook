@@ -217,6 +217,14 @@ export const seasons: SeasonSummary[] = Object.keys(SEASON_META).map((id) => {
   return { id, ...meta, episodes: eps, publishedCount };
 });
 
+// Seasons that have at least one episode through voice-pass. Use this
+// on public surfaces (home page, future indexes/feeds) so unpublished
+// seasons don't leak. `seasons` stays as the full catalog for routes
+// like /season-2 that should still resolve to an empty-state page.
+export const publishedSeasons: SeasonSummary[] = seasons.filter(
+  (s) => s.publishedCount > 0,
+);
+
 export function getSeason(id: string | undefined): SeasonSummary | undefined {
   if (!id) return undefined;
   return seasons.find((s) => s.id === id);

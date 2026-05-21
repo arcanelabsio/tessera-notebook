@@ -1,4 +1,4 @@
-import { intro, latestEpisode, seasons } from "../content/loader";
+import { intro, latestEpisode, publishedSeasons } from "../content/loader";
 import { Markdown } from "../components/Markdown";
 import { SeasonCard } from "../components/SeasonCard";
 import { TodayHero } from "../components/TodayHero";
@@ -20,7 +20,7 @@ export function Home() {
 
       <h2 className="home-section">Browse by season</h2>
       <div className="seasons-grid">
-        {seasons.map((s) => (
+        {publishedSeasons.map((s) => (
           <SeasonCard key={s.id} season={s} />
         ))}
       </div>
