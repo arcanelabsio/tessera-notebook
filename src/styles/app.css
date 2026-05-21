@@ -269,6 +269,16 @@
   line-height: 1.55;
   border-bottom: 1px solid var(--rule-soft);
 }
+/* Column 1 is always a single short label ("Feature", "Decision" …).
+   Auto table-layout would otherwise hand it ~1/3 of the width based on
+   row 3's long prose and word-break the label. `width: 1%` + nowrap
+   collapses column 1 to its min-content width and lets columns 2 and 3
+   absorb the remainder. */
+.intro-body thead th:first-child,
+.intro-body tbody td:first-child {
+  width: 1%;
+  white-space: nowrap;
+}
 .intro-body tbody td:first-child {
   padding-left: 0;
   font-weight: 500;
