@@ -1,5 +1,10 @@
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { feedPlugin } from "./scripts/vite-plugin-feed";
+
+const here = dirname(fileURLToPath(import.meta.url));
 
 // Vite config for the tessera.arcanelabs.info SPA.
 //
@@ -7,9 +12,13 @@ import react from "@vitejs/plugin-react";
 // site is served from the root path "/". base stays default ("/").
 //
 // Content lives at /content/{episodes,architecture}/*.md and gets bundled
-// at build time via `import.meta.glob` in src/content/loader.ts.
+// at build time via `import.meta.glob` in src/content/loader.ts. The
+// feed plugin emits dist/feed.xml at build time from the same source.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    feedPlugin({ contentRoot: resolve(here, "content") }),
+  ],
   build: {
     target: "es2022",
     sourcemap: true,
