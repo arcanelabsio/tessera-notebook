@@ -15,6 +15,9 @@ export const CONCEPT_SKETCHES: Record<
   "two-regions-by-friday": lazy(
     () => import("./concepts/two-regions-by-friday"),
   ),
+  "two-failures-one-shape": lazy(
+    () => import("./concepts/two-failures-one-shape"),
+  ),
 };
 
 export function hasConceptSketch(slug: string): boolean {
