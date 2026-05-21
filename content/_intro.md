@@ -8,11 +8,11 @@ greeting: The Tessera Notebook — a daily platform-engineering story.
 
 A fictional engineering team at a fictional company called **Tessera** — a Bangalore-founded multi-tenant developer-infrastructure SaaS — and we watch them grow. POC. MVP. Ten thousand customers. A million. Ten million. A billion. Each rung of that ladder breaks something the previous rung relied on, and the team has to design the next thing.
 
-That's the whole conceit. The platform-engineering canon — distributed systems, Kubernetes as a control-loop engine, system design at Staff bar, enterprise identity, the agentic stack — is not a textbook here. It's the territory the team walks across as the scale forces it to.
+The platform-engineering canon — distributed systems, Kubernetes as a control-loop engine, system design at Staff bar, enterprise identity, the agentic stack — is not a textbook here. It's the territory the team walks across as the scale forces it to.
 
 ## What you'll read each morning
 
-Every episode opens with a scene from Tessera's life, and the scene surfaces a concept. The scene comes first because in working engineering teams the concept arrives when the team needs it, not when a curriculum says it's time.
+Every episode opens with a scene from Tessera's life, and the scene surfaces a concept. The scene comes first.
 
 Three scene types alternate by feel:
 
@@ -26,8 +26,6 @@ A fourth shape — **Decision** rooms — covers internal design reviews with no
 
 Each episode is roughly a 7-minute read with the same five beats: a scene (200–350 words), the concept it surfaces (400–600 words), one mental model you keep, one question to journal, and a one-line tease for tomorrow. Density is the brand.
 
-The journal question is where the takeaway lives. The episodes don't conclude with a tidy lesson; they hand you a question that only makes sense if you answer it about a service you actually maintain. That's the reading practice — and it compounds.
-
 ## Who you'll meet
 
 - **Kiran** (CTO, co-founder) sets ambitious schedules and means them.
@@ -35,12 +33,6 @@ The journal question is where the takeaway lives. The episodes don't conclude wi
 - **Diego** (founding engineer, later SRE lead) speaks last in the war room, decisively.
 - **Wim** (longest-tenured) knows where the bodies are buried in the legacy code.
 
-There are no villains. The antagonists are scale, complexity, technical debt, and customer pressure — never people.
-
 ## Where to start
 
 If you have time today, start at [**Day 1 — Two regions by Friday**](./season-1/two-regions-by-friday). It opens with Tessera's CTO walking into the engineering room with a new customer in New York, a Friday deadline, and a single-region architecture that won't survive the trip. Anjali walks to the whiteboard before anyone touches the architecture diagram. That's the texture; the rest of Season 1 builds from there.
-
-If you only have a minute, scroll down — the latest episode is below.
-
-The journal question waits at the end. Don't skip it.
