@@ -52,12 +52,30 @@ function sectionHeader(props: MarkdownNodeProps<"h2">) {
   );
 }
 
+// Every markdown table picks up `.md-table` for the editorial treatment
+// (mono amber headers, mint-soft row-identity column, hairline dividers).
+// This makes table styling a property of *the markdown component*, not
+// of whichever surface wraps it — so any new route that renders <Markdown>
+// gets correctly-formatted tables for free.
+//
+// Surface-specific overrides (`.mm-card` wrapper, `.intro-body` mobile
+// stacking) still apply via higher specificity at their respective scopes.
+function tableElement(props: MarkdownNodeProps<"table">) {
+  const { children, node: _n, ...rest } = props;
+  void _n;
+  return (
+    <table className="md-table" {...rest}>
+      {children}
+    </table>
+  );
+}
+
 function plainComponents(): Components {
-  return { a: LinkOrAnchor };
+  return { a: LinkOrAnchor, table: tableElement };
 }
 
 function episodeComponents(): Components {
-  return { a: LinkOrAnchor, h2: sectionHeader };
+  return { a: LinkOrAnchor, h2: sectionHeader, table: tableElement };
 }
 
 export function Markdown({ source, variant = "episode" }: Props) {

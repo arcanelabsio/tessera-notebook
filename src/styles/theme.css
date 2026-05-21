@@ -638,6 +638,56 @@
       border-radius: 0;
     }
 
+    /* ─────────────────────────────────────────────────── MARKDOWN TABLES */
+    /* Every <table> emitted by the Markdown component (components/Markdown.tsx)
+       carries `.md-table`. This is the canonical editorial table treatment
+       for the whole site — mono amber headers, mint-soft row-identity
+       column, hairline dividers, serif body. Surface-specific overrides
+       layer on top via parent-scoped selectors:
+         - `.mm-card` (below)            — Mental-model wrapper: breakout
+                                           to --measure-wide with top/bottom
+                                           rules and horizontal overflow.
+         - `.intro-body` (in app.css)    — Home-page intro: same base, plus
+                                           mobile stacking under 560px.
+       Because the base styling is identical to those surface overrides,
+       the markup-via-class contract means new render surfaces don't need
+       their own table styles — they get the editorial treatment by virtue
+       of using <Markdown>. */
+    .md-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--f-serif);
+      font-size: var(--fs-16);
+      margin: var(--space-6) auto;
+      table-layout: auto;
+    }
+    .md-table thead th {
+      font-family: var(--f-mono);
+      font-size: var(--fs-14);
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0 var(--space-4) var(--space-3);
+      border-bottom: 1px solid var(--rule);
+      white-space: nowrap;
+    }
+    .md-table thead th:first-child { padding-left: 0; }
+    .md-table tbody td {
+      padding: var(--space-3) var(--space-4);
+      vertical-align: top;
+      color: var(--fg);
+      line-height: 1.5;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+    .md-table tbody td:first-child {
+      padding-left: 0;
+      font-weight: 500;
+      color: var(--mint-soft);
+    }
+    .md-table tbody tr:last-child td { border-bottom: 0; }
+
     /* ─────────────────────────────────────────────────── MENTAL MODEL CARD */
     /* Breaks out of --measure (720) to --measure-wide (960) so wide
        tables don't side-scroll. Centered inside .page. Editorial

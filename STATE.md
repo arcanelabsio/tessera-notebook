@@ -2,7 +2,9 @@
 
 ## Active workstream — Algorithmic art as episode interaction layer
 
-**Phase:** prototype against Day 1 (`two-regions-by-friday`) to validate the architecture before generalising.
+**Phase:** **SHIPPED** — Day 1 (`two-regions-by-friday`) live on `main` via commit `a3fcc97`. Four-agent publish pipeline in place. Next phase: pipeline-driven authoring of subsequent episodes.
+
+**Last verified end-to-end:** episode-orchestrator pipeline run on Day 1 returned `PUBLISHED` with verifier outcome `PASSED` (typecheck, build, HTTP smoke, headless DOM all green; ambient + concept canvases mounted; 4 sliders rendered; zero console errors).
 
 ### Architecture decisions
 
@@ -68,12 +70,24 @@ Note: the v2 → v1 downgrade only saved ~52kB gz (16%), not the ~50% I'd estima
 - p5 v1's Friendly Error System (FES) tries to fetch the calling script's source over the network to produce nicer dev-time errors. Under Vite this fails noisily (modules served as HMR transforms, not standalone scripts). `SketchCanvas` disables FES once at module load — production behaviour is unchanged.
 - Two canvases on one page (ambient + concept) requires p5 *instance mode*. Global mode would have them clobber each other on `window`.
 
-### Open follow-ups
+## Publish pipeline — four agents in `.claude/agents/`
 
-1. **Bundle decision.** 320kb gz is real for first-episode visit. Three options worth weighing:
-   - Keep p5 v2 (authoring velocity wins)
-   - Downgrade to `p5@1.11.x` (~half the size; same API for our use)
-   - Replace with hand-rolled canvas primitives (~5kb; loses p5's vector/noise/color helpers)
-2. **More concept widgets.** The architecture is proven against Day 1. The next high-leverage candidates are likely episodes whose concept is intrinsically visual (queues, retry storms, consistent hashing, gossip topologies).
+| Agent | Model | Tools | Role |
+|---|---|---|---|
+| `episode-orchestrator` | sonnet | Read, Glob, Grep, Bash, Agent | Coordinator. 6 phases: pre-flight → editor → sketch-author → verifier → stage+commit+push → final report. |
+| `episode-editor` | opus | All tools | Presentation editor. Produces a structured brief (5 sections incl. `CONCEPT WIDGET BRIEF` block). May edit frontmatter + non-prose structural defects; never prose. |
+| `episode-sketch-author` | opus | Read, Glob, Grep, Edit, Write, Bash | Implements the editor's brief into a TSX widget under `src/components/sketches/concepts/<slug>.tsx`; registers via one-line addition to `registry.ts`. |
+| `episode-verifier` | sonnet | Read, Glob, Grep, Bash, Edit, Write | Runtime smoke: typecheck → build → HTTP smoke → headless DOM via Claude Preview MCP. Returns PASSED / PASSED-WITH-CAVEATS / FAILED. |
+
+Pipeline contract is the CONCEPT WIDGET BRIEF block (Slug, Thesis, Metaphor, Controls 1–4, Readout 1–3, Aspect, Caption) — the editor produces it, the orchestrator passes it verbatim, the sketch-author implements mechanically.
+
+Commit + push safeguards encoded in orchestrator prompt: only pipeline-touched files staged (no `-A`), conventional commits format, **no `Co-Authored-By: Claude`** (per global CLAUDE.md), no force push, no `--amend` after pre-commit hook failure, push only if verifier ≠ FAILED.
+
+## Open follow-ups
+
+1. **Author follow-up: Day 1's §"The concept it surfaces" runs 958 words** (envelope: 400–600; ceiling: 700). The fibre-floor calculation + AWS latency table + "Most engineers can recite…" commentary together push past the 7-min density brand. Editor flagged on the last run; author resolves. Suggested split point: the "Most engineers can recite…" paragraph as a future-episode aside.
+2. **More concept widgets.** The architecture is proven against Day 1. The next high-leverage candidates are episodes whose concept is intrinsically visual (queues, retry storms, consistent hashing, gossip topologies).
 3. **Reading-progress hookup.** Currently the ambient sketch ignores `useReadingProgress`. Could bind particle behaviour to the beat the reader is on — e.g., particles converge as the reader hits "Mental model", scatter on "Tomorrow". Adds genuine interactivity to the ambient layer.
 4. **Reduced-motion polish.** Currently the sketch suspends after one frame. Could instead render a deterministic "still-life" composition computed analytically (no draw loop) for a sharper static reading.
+5. **Mental model table — row-by-row scroll reveal.** Editor flagged as a non-sketch enhancement opportunity. Requires CSS + a small IntersectionObserver hook; not yet implemented.
+6. **Agent registry refresh.** Newly-authored agents (`episode-orchestrator`, `episode-editor`, `episode-sketch-author`, `episode-verifier`) are not visible to the `Agent` dispatcher until the session is restarted. After `/clear` or restart, `Agent({ subagent_type: 'episode-orchestrator', … })` will dispatch the real agent.
