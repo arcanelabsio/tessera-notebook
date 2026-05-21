@@ -39,19 +39,6 @@ Skipping a day is normal. Skipping two in a row is the failure mode the cadence 
 
 The journal question is where the takeaway lives. The episodes don't conclude with a tidy lesson; they hand you a question that only makes sense if you answer it about a service you actually maintain. That's the reading practice — and it compounds.
 
-## Four seasons. No finale.
-
-| Season | Scale tier | The mental scaffold it builds |
-|---|---|---|
-| **Season 1** · Distributed Systems Foundations | POC → 10K customers | Every interaction is over a network, and every component can fail. By the end of Season 1 you reflexively ask: *what does this do when the network blips for 800ms?* |
-| **Season 2** · Platform Engineering as a Discipline | 10K → 1M | Platform engineering is product management for developers. Kubernetes is a generic control-loop engine that happens to ship with container scheduling. Multi-tenancy is an architectural choice, not a feature flag. |
-| **Season 3** · System Design at Staff Bar | 1M → 10M | Frame an ambiguous problem under time pressure. Estimate at scale with three anchor numbers. Defend a data-store choice in a design review. Write the ADR that gets cited three years later. |
-| **Season 4** · Identity, Compliance, and the Agentic Era | 10M → 1B | Enterprise identity — OAuth, OIDC, SAML, mTLS, SPIFFE, zero trust — at the depth a Fortune 500 security team will push you on. The agentic literacy for designing LLM-backed services under cost and latency budgets. |
-
-A season ends when its conceptual scaffold is complete, not when an episode count is reached. There is no Day 100 finale. New scenes will keep arriving as Tessera's surface area grows — federation, edge compute, AI-native architectures, the messy realities of being a 500-engineer company.
-
-When a topic has surfaced three times in the main story, that's the signal to consider a **branch series** — a focused 10–15 episode deep-dive that returns to Tessera but drills deeper than the main thread permits. *The CRD Season*, *The Identity Season*, *The Postmortem Season* are the likely first three. Branches are written when the main story has earned them.
-
 ## Who you'll meet
 
 Tessera's crew is fixed; behaviour is the texture. You learn who each character is by watching them work, not from narrator essays.
