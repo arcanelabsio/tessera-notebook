@@ -166,43 +166,87 @@
 }
 .season-card__count--coming { font-style: italic; }
 
-/* overflow-x: auto lets any wide table inside the intro horizontal-
-   scroll if it exceeds the viewport width, instead of pushing the
-   page to scroll. Mirrors the .mm-card pattern in theme.css. */
 .intro-body {
   max-width: var(--measure);
   margin: 0 auto;
   overflow-wrap: anywhere;
-  overflow-x: auto;
 }
+/* Editorial table style for tables inside the intro markdown.
+   Mirrors .mm-card in theme.css so both surfaces share one visual
+   vocabulary. On narrow viewports the table reflows into a stacked
+   card list — see media query below. */
 .intro-body table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--f-serif);
   font-size: var(--fs-16);
   margin: var(--space-6) 0;
+  table-layout: auto;
 }
 .intro-body thead th {
   font-family: var(--f-mono);
-  font-size: var(--fs-14);
+  font-size: var(--fs-13);
   font-weight: 600;
   color: var(--amber);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.10em;
   text-transform: uppercase;
   text-align: left;
-  padding: 0 var(--space-3) var(--space-3);
+  padding: 0 var(--space-4) var(--space-3);
   border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
 }
+.intro-body thead th:first-child { padding-left: 0; }
 .intro-body tbody td {
-  padding: var(--space-3);
+  padding: var(--space-3) var(--space-4);
   vertical-align: top;
-  line-height: 1.5;
+  line-height: 1.55;
   border-bottom: 1px solid var(--rule-soft);
 }
-.intro-body tbody tr:last-child td { border-bottom: 0; }
 .intro-body tbody td:first-child {
+  padding-left: 0;
   font-weight: 500;
   color: var(--mint-soft);
+}
+.intro-body tbody tr:last-child td { border-bottom: 0; }
+
+/* On narrow viewports a 3-column prose-y table is unreadable — 120px
+   columns can't host 100-char sentences. Stack rows as labeled cards
+   instead: first cell becomes a mono-uppercase row label, the rest
+   stack as supporting paragraphs. Header row is hidden because the
+   first-column label is self-evident in editorial context. */
+@media (max-width: 560px) {
+  .intro-body table,
+  .intro-body tbody,
+  .intro-body tr,
+  .intro-body td {
+    display: block;
+    width: 100%;
+  }
+  .intro-body thead { display: none; }
+  .intro-body table {
+    margin: var(--space-6) 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .intro-body tbody tr {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .intro-body tbody td {
+    padding: 0;
+    border: 0;
+    line-height: 1.5;
+  }
+  .intro-body tbody td + td { margin-top: var(--space-2); }
+  .intro-body tbody td:first-child {
+    font-family: var(--f-mono);
+    font-size: var(--fs-13);
+    font-weight: 600;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    margin-bottom: var(--space-2);
+  }
+  .intro-body tbody tr:last-child { border-bottom: 0; }
 }
 
 /* ─────────────────────────────────────── SEASON INDEX ──────────────────── */
