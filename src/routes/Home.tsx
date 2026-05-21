@@ -1,5 +1,6 @@
 import { intro, latestEpisode, publishedSeasons } from "../content/loader";
 import { Markdown } from "../components/Markdown";
+import { ResumeCard } from "../components/ResumeCard";
 import { SeasonCard } from "../components/SeasonCard";
 import { TodayHero } from "../components/TodayHero";
 import { useDocumentTitle, pageTitle } from "../content/head";
@@ -7,8 +8,11 @@ import { useDocumentTitle, pageTitle } from "../content/head";
 export function Home() {
   useDocumentTitle(pageTitle());
   return (
-    <main className="page">
+    <main id="main" className="page">
+      <h1 className="visually-hidden">The Tessera Notebook</h1>
       <p className="greeting">{intro.greeting}</p>
+
+      <ResumeCard />
 
       <h2 className="home-section">Today</h2>
       <TodayHero episode={latestEpisode} />

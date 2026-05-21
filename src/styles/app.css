@@ -113,6 +113,63 @@
   text-transform: uppercase;
 }
 
+/* Resume-reading slot — appears on Home when lastVisited is set and
+   differs from the latest episode. De-boxed: a thin amber top-rule
+   signals "you have an unfinished episode" without making the affordance
+   feel like a popup. Editorial restraint over notification chrome. */
+.resume-card {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  max-width: var(--measure);
+  margin: 0 auto var(--space-12);
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--amber);
+}
+.resume-card__link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-decoration: none;
+  color: var(--fg);
+  padding: var(--space-2) 0;
+}
+.resume-card__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-12);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.resume-card__title {
+  font-family: var(--f-serif);
+  font-size: var(--fs-18);
+  color: var(--fg);
+  line-height: 1.3;
+  transition: color 150ms ease;
+}
+.resume-card__link:hover .resume-card__title,
+.resume-card__link:focus-visible .resume-card__title {
+  color: var(--mint);
+}
+.resume-card__dismiss {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-family: var(--f-mono);
+  font-size: var(--fs-20);
+  line-height: 1;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  margin-right: calc(-1 * var(--space-3));
+  transition: color 150ms ease;
+}
+.resume-card__dismiss:hover,
+.resume-card__dismiss:focus-visible { color: var(--fg); }
+
 .seasons-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -174,6 +231,17 @@
   letter-spacing: 0.04em;
 }
 .season-card__count--coming { font-style: italic; }
+.season-card__read {
+  font-family: var(--f-mono);
+  font-size: var(--fs-13);
+  color: var(--mint-soft);
+  margin-top: var(--space-1);
+  letter-spacing: 0.04em;
+}
+.season-card__read--complete {
+  color: var(--mint);
+  font-weight: 600;
+}
 
 .intro-body {
   max-width: var(--measure);

@@ -22,7 +22,7 @@ export function SeasonIndex() {
   const arcs = groupEpisodesByArc(season);
 
   return (
-    <main className="page">
+    <main id="main" className="page">
       <Link className="back-nav" to="/">
         ← /
       </Link>

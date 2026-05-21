@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Masthead } from "./components/Masthead";
 import { Footer } from "./components/Footer";
+import { ShortcutsDialog } from "./components/ShortcutsDialog";
 import { Home } from "./routes/Home";
 import { SeasonIndex } from "./routes/SeasonIndex";
 import { Episode } from "./routes/Episode";
@@ -10,6 +11,9 @@ import { ReadingProgressProvider } from "./state/ReadingProgress";
 export default function App() {
   return (
     <ReadingProgressProvider>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Masthead />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -19,6 +23,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <ShortcutsDialog />
     </ReadingProgressProvider>
   );
 }

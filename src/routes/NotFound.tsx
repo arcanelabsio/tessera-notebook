@@ -4,7 +4,7 @@ import { useDocumentTitle, pageTitle } from "../content/head";
 export function NotFound() {
   useDocumentTitle(pageTitle("Not found"));
   return (
-    <main className="page">
+    <main id="main" className="page">
       <section className="season-hero">
         <span className="season-hero__label">404</span>
         <h1 className="season-hero__title">This page isn't here.</h1>

@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import { Markdown } from "./Markdown";
 
 // Split an episode body by H2 sections. The episode template (Scene,
@@ -51,15 +52,65 @@ function wrapperFor(heading: string): string | null {
   return null;
 }
 
+function AnchorLink({ id, heading }: { id: string; heading: string }) {
+  const [copied, setCopied] = useState(false);
+  const onClick = useCallback(
+    async (e: React.MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault();
+      const url = `${window.location.origin}${window.location.pathname}#${id}`;
+      window.history.replaceState(null, "", `#${id}`);
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(url);
+          setCopied(true);
+          window.setTimeout(() => setCopied(false), 1500);
+        }
+      } catch {
+        // clipboard write can fail under permissions policy or non-secure
+        // contexts; the URL hash update above still gives readers a way
+        // to share — just no toast feedback.
+      }
+    },
+    [id],
+  );
+  return (
+    <a
+      href={`#${id}`}
+      className="anchor-link"
+      onClick={onClick}
+      data-copied={copied ? "true" : undefined}
+      aria-label={`Copy link to section: ${heading}`}
+    >
+      #
+    </a>
+  );
+}
+
+function EpisodeTOC({ sections }: { sections: Section[] }) {
+  if (sections.length < 2) return null;
+  return (
+    <nav className="episode-toc" aria-label="Episode sections">
+      <span className="episode-toc__label"># beats</span>
+      {sections.map((s) => (
+        <a key={s.id} href={`#${s.id}`}>
+          {s.heading}
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 export function EpisodeBody({ body }: { body: string }) {
   const sections = splitSections(body);
   return (
     <article className="prose">
+      <EpisodeTOC sections={sections} />
       {sections.map((section) => {
         const wrap = wrapperFor(section.heading);
         return (
           <div key={section.id}>
             <h2 className="section-h" id={section.id}>
+              <AnchorLink id={section.id} heading={section.heading} />
               {section.heading}
             </h2>
             {wrap ? (

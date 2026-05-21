@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import type { Episode } from "../content/types";
+import { TransitionLink } from "./TransitionLink";
 
 function pad(n: number, w = 2) {
   return String(n).padStart(w, "0");
@@ -15,7 +15,7 @@ export function EpisodeNav({
   return (
     <nav className="ep-nav" aria-label="Episode navigation">
       {prev ? (
-        <Link
+        <TransitionLink
           to={prev.url}
           className="ep-nav__card ep-nav__card--prev"
           aria-label={`Previous episode: Day ${prev.episode}, ${prev.title}`}
@@ -23,7 +23,7 @@ export function EpisodeNav({
           <span className="ep-nav__dir">← previous</span>
           <span className="ep-nav__day">Day {pad(prev.episode)}</span>
           <span className="ep-nav__title">{prev.title}</span>
-        </Link>
+        </TransitionLink>
       ) : (
         <span
           className="ep-nav__card ep-nav__card--prev ep-nav__card--disabled"
@@ -34,7 +34,7 @@ export function EpisodeNav({
         </span>
       )}
       {next ? (
-        <Link
+        <TransitionLink
           to={next.url}
           className="ep-nav__card ep-nav__card--next"
           aria-label={`Next episode: Day ${next.episode}, ${next.title}`}
@@ -42,7 +42,7 @@ export function EpisodeNav({
           <span className="ep-nav__dir">next →</span>
           <span className="ep-nav__day">Day {pad(next.episode)}</span>
           <span className="ep-nav__title">{next.title}</span>
-        </Link>
+        </TransitionLink>
       ) : (
         <span
           className="ep-nav__card ep-nav__card--next ep-nav__card--disabled"

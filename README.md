@@ -99,10 +99,12 @@ Result: deep-link refreshes work transparently.
 
 Client-side state is minimal and persisted to `localStorage`:
 
-- **Reading progress** — set of episode URLs the reader has opened. Surfaced as a `✓` indicator on already-read rows in season indexes. See `src/state/ReadingProgress.tsx`.
-- **Last visited** — for future "Resume reading" affordance.
+- **Reading progress** — set of episode URLs the reader has opened. Surfaced as a `✓` indicator on already-read rows in season indexes, and as a `N of M read` line on home-page season cards. See `src/state/ReadingProgress.tsx`.
+- **Last visited** — surfaced as the home-page "Continue reading" affordance via `src/components/ResumeCard.tsx`; dismissible per-episode.
 
-Theme is **light-only in v1** per the binding design contract; dark mode is reserved as a future ADR amendment.
+Keyboard shortcuts (`?` opens the help dialog): `J` / `→` next, `K` / `←` previous, `G` home.
+
+Theme honors **`prefers-color-scheme`** — light is the default, dark is rendered automatically for readers whose OS prefers dark. Both palettes live in `src/styles/theme.css` and stay in sync through semantic color tokens.
 
 No Redux/Zustand — `React.Context` + a `usePersisted` hook is enough until the state model grows non-trivially.
 

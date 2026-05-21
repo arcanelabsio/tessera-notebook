@@ -3,13 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light only" />
+    <meta name="color-scheme" content="light dark" />
     <title>The Tessera Notebook</title>
     <meta name="description" content="A daily platform-engineering story. One episode a day, roughly seven minutes." />
     <link rel="alternate" type="application/rss+xml" title="The Tessera Notebook" href="/feed.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,ital,wght@8..60,0,400;8..60,0,500;8..60,0,600;8..60,0,700;8..60,1,400;8..60,1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Non-blocking font load. preload + onload-swap pattern: browser fetches the
+         Google Fonts stylesheet at high priority but doesn't block render on it.
+         font-display: swap (in the URL) gives FOUT instead of FOIT during the
+         fetch window. <noscript> fallback for clients without JS. Full
+         self-hosting of variable woff2 files is the next perf step but lands in
+         a follow-up that ships the binary assets. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,ital,wght@8..60,0,400;8..60,0,500;8..60,0,600;8..60,0,700;8..60,1,400;8..60,1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,ital,wght@8..60,0,400;8..60,0,500;8..60,0,600;8..60,0,700;8..60,1,400;8..60,1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
     <script type="text/javascript">
       // GH Pages SPA-fallback decode. When 404.html redirects an
       // unknown deep URL to "/?/season-1/two-regions-by-friday", this
