@@ -18,6 +18,9 @@ export const CONCEPT_SKETCHES: Record<
   "two-failures-one-shape": lazy(
     () => import("./concepts/two-failures-one-shape"),
   ),
+  "where-the-data-lives": lazy(
+    () => import("./concepts/where-the-data-lives"),
+  ),
 };
 
 export function hasConceptSketch(slug: string): boolean {
